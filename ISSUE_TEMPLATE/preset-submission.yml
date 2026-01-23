@@ -7,7 +7,6 @@ body:
     id: name
     attributes:
       label: Character Name
-      description: Name for this preset
       placeholder: "Malenia Cosplay"
     validations:
       required: true
@@ -16,8 +15,7 @@ body:
     id: description
     attributes:
       label: Description
-      description: Detailed description
-      placeholder: "Accurate recreation of Malenia..."
+      placeholder: "Accurate recreation of Malenia with red hair..."
     validations:
       required: true
       
@@ -25,7 +23,7 @@ body:
     id: tags
     attributes:
       label: Tags
-      description: Comma-separated tags
+      description: Comma-separated (e.g., cosplay, female, redhead)
       placeholder: "cosplay, female, redhead"
     validations:
       required: true
@@ -34,14 +32,25 @@ body:
     id: screenshot
     attributes:
       label: Screenshot
-      description: Drag and drop in-game screenshots
+      description: Drag and drop your in-game screenshot (PNG/JPG)
     validations:
       required: true
       
   - type: textarea
-    id: appearance
+    id: appearance_json
     attributes:
-      label: Appearance File
-      description: Drag and drop exported JSON file
+      label: Appearance JSON
+      description: |
+        Export your character using "Export to JSON" in the Appearance tab.
+        Drag and drop the .json file here.
     validations:
       required: true
+      
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Submission Checklist
+      options:
+        - label: I exported the JSON using the tool's "Export to JSON" button
+        - label: Screenshot clearly shows the character
+        - label: I agree to share this preset publicly
