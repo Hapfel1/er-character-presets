@@ -50,53 +50,40 @@ jobs:
               throw new Error('Missing required fields');
             }
             
-            const presetName = nameMatch[1].trim();
+            const name = nameMatch[1].trim();
             const author = authorMatch[1].trim();
             const tags = tagsMatch[1].trim();
             const description = descMatch[1].trim();
             
-            // Extract JSON
-            const jsonMatch = body.match(/```json\s*\n([\s\S]+?)\n```/);
+            // Extract appearance JSON
+            const jsonMatch = body.match(/```json\s*([\s\S]+?)\s*```/);
             if (!jsonMatch) {
-              throw new Error('Missing appearance JSON');
+              throw new Error('No appearance JSON found');
             }
             
             const appearance = JSON.parse(jsonMatch[1]);
             
-            core.setOutput('preset_name', presetName);
+            core.setOutput('preset_name', name);
             core.setOutput('author', author);
             core.setOutput('tags', tags);
             core.setOutput('description', description);
-            core.setOutput('appearance_json', JSON.stringify(appearance));
-            core.setOutput('issue_number', issue.number);
+            core.setOutput('appearance', JSON.stringify(appearance));
+            
+            console.log(`Extracted: ${name} by ${author}`);
       
-      - name: Generate preset ID
-        id: generate_id
-        run: |
-          if [ -f index.json ]; then
-            LAST_ID=$(jq -r '.presets[-1].id // "preset_000"' index.json)
-            NUM=$(echo $LAST_ID | sed 's/preset_0*//')
-            NEXT_NUM=$((NUM + 1))
-            PRESET_ID=$(printf "preset_%03d" $NEXT_NUM)
-          else
-            PRESET_ID="preset_001"
-          fi
-          
-          echo "preset_id=$PRESET_ID" >> $GITHUB_OUTPUT
-      
-      - name: Download and extract ZIP from issue
+      - name: Download images from ZIP
         id: download_images
         uses: actions/github-script@v7
         with:
           script: |
-            const issue = context.payload.issue;
             const fs = require('fs');
             const https = require('https');
             const { execSync } = require('child_process');
             
+            const issue = context.payload.issue;
             const body = issue.body || '';
             
-            // Look for ZIP file attachment
+            // Find ZIP file attachment
             // GitHub attaches files as: [filename.zip](https://github.com/...)
             const zipRegex = /\[([^\]]+\.zip)\]\((https:\/\/[^)]+)\)/gi;
             const zipMatches = [...body.matchAll(zipRegex)];
@@ -154,68 +141,40 @@ jobs:
               core.setOutput('has_preview', hasPreview ? 'true' : 'false');
               core.setOutput('has_images', hasImages ? 'true' : 'false');
             } else {
-              // Fallback: look for individual images (legacy support)
-              const imageRegex = /!\[([^\]]*)\]\((https:\/\/[^)]+)\)/g;
-              const images = [...body.matchAll(imageRegex)];
-              
-              console.log(`No ZIP found, checking for individual images: ${images.length}`);
-              
-              const imageMap = { 'face': null, 'body': null, 'preview': null };
-              
-              for (const match of images) {
-                const altText = match[1].toLowerCase();
-                const url = match[2];
-                
-                let imageType = null;
-                if (altText.includes('face')) imageType = 'face';
-                else if (altText.includes('body')) imageType = 'body';
-                else if (altText.includes('preview')) imageType = 'preview';
-                
-                if (imageType && !imageMap[imageType]) {
-                  const ext = url.match(/\.(png|jpg|jpeg|gif)(\?|$)/i)?.[1] || 'png';
-                  const filename = `${imageType}.${ext}`;
-                  
-                  await new Promise((resolve, reject) => {
-                    https.get(url, (response) => {
-                      if (response.statusCode === 302 || response.statusCode === 301) {
-                        https.get(response.headers.location, (redirectResponse) => {
-                          const file = fs.createWriteStream(filename);
-                          redirectResponse.pipe(file);
-                          file.on('finish', () => { file.close(); resolve(); });
-                          file.on('error', reject);
-                        }).on('error', reject);
-                      } else {
-                        const file = fs.createWriteStream(filename);
-                        response.pipe(file);
-                        file.on('finish', () => { file.close(); resolve(); });
-                        file.on('error', reject);
-                      }
-                    }).on('error', reject);
-                  });
-                  
-                  imageMap[imageType] = filename;
-                }
-              }
-              
-              hasImages = imageMap.face || imageMap.body;
-              core.setOutput('has_face', imageMap.face ? 'true' : 'false');
-              core.setOutput('has_body', imageMap.body ? 'true' : 'false');
-              core.setOutput('has_preview', imageMap.preview ? 'true' : 'false');
-              core.setOutput('has_images', hasImages ? 'true' : 'false');
+              core.setOutput('has_images', 'false');
             }
       
-      - name: Create preset files
+      - name: Generate preset ID
+        id: generate_id
+        run: |
+          # Find highest preset number
+          HIGHEST=0
+          if [ -f index.json ]; then
+            HIGHEST=$(jq -r '.presets[].id' index.json | grep -oP 'preset_\K\d+' | sort -n | tail -1)
+            if [ -z "$HIGHEST" ]; then
+              HIGHEST=0
+            fi
+          fi
+          
+          NEXT=$((HIGHEST + 1))
+          PRESET_ID=$(printf "preset_%03d" $NEXT)
+          
+          echo "preset_id=$PRESET_ID" >> $GITHUB_OUTPUT
+          echo "Generated ID: $PRESET_ID"
+      
+      - name: Create preset files in subfolder
         run: |
           PRESET_ID="${{ steps.generate_id.outputs.preset_id }}"
           PRESET_NAME="${{ steps.parse.outputs.preset_name }}"
           AUTHOR="${{ steps.parse.outputs.author }}"
           TAGS="${{ steps.parse.outputs.tags }}"
           DESCRIPTION="${{ steps.parse.outputs.description }}"
-          APPEARANCE='${{ steps.parse.outputs.appearance_json }}'
+          APPEARANCE='${{ steps.parse.outputs.appearance }}'
           
-          mkdir -p presets
+          # Create preset subfolder
+          mkdir -p "presets/${PRESET_ID}"
           
-          # Create JSON
+          # Save appearance JSON
           TAGS_ARRAY=$(echo "$TAGS" | jq -R 'split(",") | map(gsub("^\\s+|\\s+$";""))')
           CREATED_DATE=$(date +%Y-%m-%d)
           
@@ -226,7 +185,6 @@ jobs:
             --arg description "$DESCRIPTION" \
             --argjson tags "$TAGS_ARRAY" \
             --argjson appearance "$APPEARANCE" \
-            --arg screenshot "presets/${PRESET_ID}.png" \
             --arg created "$CREATED_DATE" \
             '{
               id: $id,
@@ -235,46 +193,60 @@ jobs:
               description: $description,
               tags: $tags,
               appearance: $appearance,
-              screenshot_url: $screenshot,
-              downloads: 0,
               created: $created
-            }' > presets/${PRESET_ID}.json
+            }' > "presets/${PRESET_ID}/data.json"
           
-          # Copy images
+          # Copy images to subfolder
           HAS_FACE="${{ steps.download_images.outputs.has_face }}"
           HAS_BODY="${{ steps.download_images.outputs.has_body }}"
           HAS_PREVIEW="${{ steps.download_images.outputs.has_preview }}"
           
+          # Face image (required)
           if [ "$HAS_FACE" = "true" ]; then
             for ext in png jpg jpeg; do
               if [ -f "face.$ext" ]; then
-                cp "face.$ext" "presets/${PRESET_ID}_face.png"
-                cp "face.$ext" "presets/${PRESET_ID}.png"
-                break
-              fi
-            done
-          fi
-          
-          if [ "$HAS_BODY" = "true" ]; then
-            for ext in png jpg jpeg; do
-              if [ -f "body.$ext" ]; then
-                cp "body.$ext" "presets/${PRESET_ID}_body.png"
-                if [ "$HAS_FACE" != "true" ]; then
-                  cp "body.$ext" "presets/${PRESET_ID}.png"
+                cp "face.$ext" "presets/${PRESET_ID}/face.png"
+                # Use face as preview if no preview provided
+                if [ "$HAS_PREVIEW" != "true" ]; then
+                  cp "face.$ext" "presets/${PRESET_ID}/preview.png"
                 fi
                 break
               fi
             done
           fi
           
-          if [ "$HAS_PREVIEW" = "true" ]; then
+          # Body image (required)
+          if [ "$HAS_BODY" = "true" ]; then
             for ext in png jpg jpeg; do
-              if [ -f "preview.$ext" ]; then
-                cp "preview.$ext" "presets/${PRESET_ID}_preview.png"
+              if [ -f "body.$ext" ]; then
+                cp "body.$ext" "presets/${PRESET_ID}/body.png"
+                # Use body as fallback if no face and no preview
+                if [ "$HAS_FACE" != "true" ] && [ "$HAS_PREVIEW" != "true" ]; then
+                  cp "body.$ext" "presets/${PRESET_ID}/preview.png"
+                fi
                 break
               fi
             done
           fi
+          
+          # Preview image (optional - overrides face/body)
+          if [ "$HAS_PREVIEW" = "true" ]; then
+            for ext in png jpg jpeg; do
+              if [ -f "preview.$ext" ]; then
+                cp "preview.$ext" "presets/${PRESET_ID}/preview.png"
+                break
+              fi
+            done
+          fi
+          
+          # CLEANUP: Remove extracted files and ZIP
+          rm -f face.png face.jpg face.jpeg
+          rm -f body.png body.jpg body.jpeg
+          rm -f preview.png preview.jpg preview.jpeg
+          rm -f preset_images.zip *.zip
+          
+          echo "Created preset files in presets/${PRESET_ID}/"
+          ls -la "presets/${PRESET_ID}/"
       
       - name: Update index.json
         run: |
@@ -283,6 +255,9 @@ jobs:
           AUTHOR="${{ steps.parse.outputs.author }}"
           TAGS="${{ steps.parse.outputs.tags }}"
           DESCRIPTION="${{ steps.parse.outputs.description }}"
+          HAS_FACE="${{ steps.download_images.outputs.has_face }}"
+          HAS_BODY="${{ steps.download_images.outputs.has_body }}"
+          HAS_PREVIEW="${{ steps.download_images.outputs.has_preview }}"
           
           if [ ! -f index.json ]; then
             cat > index.json << 'EOF'
@@ -299,15 +274,22 @@ jobs:
           CREATED_DATE=$(date +%Y-%m-%d)
           UPDATED_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           
+          # Build index entry with URLs
           INDEX_ENTRY=$(jq -n \
             --arg id "$PRESET_ID" \
             --arg name "$PRESET_NAME" \
             --arg author "$AUTHOR" \
             --arg description "$DESCRIPTION" \
             --argjson tags "$TAGS_ARRAY" \
-            --arg data_url "presets/${PRESET_ID}.json" \
-            --arg screenshot_url "presets/${PRESET_ID}.png" \
+            --arg data_url "presets/${PRESET_ID}/data.json" \
+            --arg screenshot_url "presets/${PRESET_ID}/preview.png" \
+            --arg face_url "presets/${PRESET_ID}/face.png" \
+            --arg body_url "presets/${PRESET_ID}/body.png" \
+            --arg preview_url "presets/${PRESET_ID}/preview.png" \
             --arg created "$CREATED_DATE" \
+            --arg has_face "$HAS_FACE" \
+            --arg has_body "$HAS_BODY" \
+            --arg has_preview "$HAS_PREVIEW" \
             '{
               id: $id,
               name: $name,
@@ -316,62 +298,85 @@ jobs:
               tags: $tags,
               data_url: $data_url,
               screenshot_url: $screenshot_url,
-              downloads: 0,
               created: $created
-            }')
+            } + 
+            (if $has_face == "true" then {face_url: $face_url} else {} end) +
+            (if $has_body == "true" then {body_url: $body_url} else {} end) +
+            (if $has_preview == "true" then {preview_url: $preview_url} else {} end)'
+          )
           
+          # Update index.json
           jq --argjson entry "$INDEX_ENTRY" \
              --arg updated "$UPDATED_TIME" \
              '.presets += [$entry] | .last_updated = $updated' \
-             index.json > index.tmp && mv index.tmp index.json
+             index.json > index.json.tmp
+          mv index.json.tmp index.json
+          
+          echo "Updated index.json with preset $PRESET_ID"
       
       - name: Create Pull Request
         id: create_pr
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Add preset: ${{ steps.parse.outputs.preset_name }} by ${{ steps.parse.outputs.author }}"
+          commit-message: "Add preset: ${{ steps.parse.outputs.preset_name }}"
           branch: preset-${{ steps.generate_id.outputs.preset_id }}
-          delete-branch: true
-          title: "[Preset] ${{ steps.parse.outputs.preset_name }} by ${{ steps.parse.outputs.author }}"
+          title: "New Preset: ${{ steps.parse.outputs.preset_name }}"
           body: |
-            ## Preset from Issue #${{ steps.parse.outputs.issue_number }}
+            ## Preset Submission
             
-            **ID:** `${{ steps.generate_id.outputs.preset_id }}`
             **Name:** ${{ steps.parse.outputs.preset_name }}
             **Author:** ${{ steps.parse.outputs.author }}
+            **Tags:** ${{ steps.parse.outputs.tags }}
             
-            **Review and merge to add preset.**
+            **Description:**
+            ${{ steps.parse.outputs.description }}
             
-            Original issue: #${{ steps.parse.outputs.issue_number }}
-          labels: preset-submission
+            **Preset ID:** ${{ steps.generate_id.outputs.preset_id }}
+            
+            ---
+            
+            Submitted via issue #${{ github.event.issue.number }}
+            
+            **Files added:**
+            - `presets/${{ steps.generate_id.outputs.preset_id }}/data.json`
+            - `presets/${{ steps.generate_id.outputs.preset_id }}/face.png`
+            - `presets/${{ steps.generate_id.outputs.preset_id }}/body.png`
+            - `presets/${{ steps.generate_id.outputs.preset_id }}/preview.png`
+            - Updated `index.json`
+            
+            **Review checklist:**
+            - [ ] Preset data is valid
+            - [ ] Images look appropriate
+            - [ ] No inappropriate content
+            - [ ] Author credited correctly
+          labels: preset-submission,automated-pr
       
-      - name: Comment on issue
+      - name: Comment on issue with PR link
+        if: success()
         uses: actions/github-script@v7
         with:
           script: |
-            const prNumber = '${{ steps.create_pr.outputs.pull-request-number }}';
-            const prUrl = '${{ steps.create_pr.outputs.pull-request-url }}';
-            
-            if (prNumber && prUrl) {
+            const prNumber = process.env.PR_NUMBER;
+            if (prNumber) {
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: ${{ steps.parse.outputs.issue_number }},
-                body: `## ✅ Preset Processed!\n\n` +
-                      `PR created: ${prUrl}\n\n` +
-                      `The maintainer will review and merge. Thank you!`
+                issue_number: context.payload.issue.number,
+                body: `✅ Pull request created: #${prNumber}\n\nYour preset will be reviewed by a maintainer and added to the database once approved!`
               });
               
               await github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: ${{ steps.parse.outputs.issue_number }},
+                issue_number: context.payload.issue.number,
                 labels: ['pr-created']
               });
             }
+        env:
+          PR_NUMBER: ${{ steps.create_pr.outputs.pull-request-number }}
       
-      - name: Handle errors
+      - name: Handle failure
         if: failure()
         uses: actions/github-script@v7
         with:
@@ -380,7 +385,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.payload.issue.number,
-              body: `## ❌ Processing Failed\n\nCheck [workflow run](${context.payload.repository.html_url}/actions/runs/${context.runId})`
+              body: `❌ Failed to process submission. Please check the workflow logs:\n\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`
             });
             
             await github.rest.issues.addLabels({
@@ -389,3 +394,4 @@ jobs:
               issue_number: context.payload.issue.number,
               labels: ['processing-failed']
             });
+            
