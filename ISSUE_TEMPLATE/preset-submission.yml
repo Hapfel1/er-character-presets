@@ -341,6 +341,9 @@ jobs:
             - [ ] No inappropriate content
             - [ ] Author credited correctly
           labels: preset-submission,automated-pr
+          add: |
+            presets/
+            index.json
       
       - name: Comment on issue with PR link
         if: success()
