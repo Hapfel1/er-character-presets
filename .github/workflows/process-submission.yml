@@ -4,7 +4,7 @@ on:
   issues:
     types: [opened, labeled]
 
-# CRITICAL: Prevent concurrent runs that could create duplicate IDs
+# CRITICAL: Prevent concurrent runs
 concurrency:
   group: preset-submission
   cancel-in-progress: false
@@ -235,18 +235,18 @@ jobs:
               if [ -z "$id" ] || ! [[ "$id" =~ ^[0-9]+$ ]]; then
                 continue
               fi
-              # Strip leading zeros immediately (fixes octal bug)
+              # Strip leading zeros to avoid octal interpretation
               id=$((10#$id))
               USED_IDS+=("$id")
             done < <(jq -r '.presets[].id' index.json 2>/dev/null | grep -oP 'preset_\K\d+' || true)
           fi
           
-          # From filesystem (in case of orphaned folders)
+          # From filesystem (orphaned folders)
           if [ -d presets ]; then
             while IFS= read -r folder; do
               if [[ "$folder" =~ preset_([0-9]+) ]]; then
                 id_str="${BASH_REMATCH[1]}"
-                # Skip invalid
+                # Skip empty or invalid IDs
                 if [ -z "$id_str" ] || ! [[ "$id_str" =~ ^[0-9]+$ ]]; then
                   continue
                 fi
@@ -260,13 +260,12 @@ jobs:
           # Remove duplicates and sort
           USED_IDS=($(printf '%s\n' "${USED_IDS[@]}" | sort -n | uniq))
           
-          echo "📋 Used IDs: ${USED_IDS[*]}"
+          echo "Used IDs: ${USED_IDS[*]}"
           
-          # Find next available ID (fill gaps first)
+          # Find next available ID (fills gaps)
           PRESET_ID=""
           for i in {0..999}; do
             FOUND=false
-            
             for used in "${USED_IDS[@]}"; do
               if [ "$used" = "$i" ]; then
                 FOUND=true
@@ -280,21 +279,20 @@ jobs:
             fi
           done
           
-          # Fallback to issue-based ID if all slots full
+          # Fallback to issue-based ID
           if [ -z "$PRESET_ID" ]; then
-            echo "⚠️ All numeric IDs used (0-999), using issue-based ID"
+            echo "All IDs 0-999 used, using issue-based ID"
             PRESET_ID="preset_i${ISSUE_NUM}"
           fi
           
           # Double-check folder doesn't exist
           if [ -d "presets/$PRESET_ID" ]; then
-            echo "⚠️ Collision detected for $PRESET_ID, using issue-based ID"
+            echo "Collision detected, using issue-based ID"
             PRESET_ID="preset_i${ISSUE_NUM}"
           fi
           
           echo "preset_id=$PRESET_ID" >> $GITHUB_OUTPUT
-          echo "✅ Generated ID: $PRESET_ID (issue #$ISSUE_NUM)"
-
+          echo "Generated ID: $PRESET_ID"
       
       - name: Create preset folder and data
         run: |
