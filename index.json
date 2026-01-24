@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-01-24T18:41:02Z",
+  "last_updated": "2026-01-24T19:33:04Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -79,6 +79,22 @@
       "face_url": "presets/preset_005/face.png",
       "body_url": "presets/preset_005/body.png",
       "preview_url": "presets/preset_005/preview.png"
+    },
+    {
+      "id": "preset_006",
+      "name": "mr mog",
+      "author": "Ghostlyswat12 (UseTheLfgChannel)",
+      "description": "from the beloved mr lfg guy hope you all enjoy this character made to hlp test the feature",
+      "tags": [
+        "male",
+        "meme",
+        "young",
+        "lfg"
+      ],
+      "data_url": "presets/preset_006/data.json",
+      "screenshot_url": "presets/preset_006/preview.png",
+      "created": "2026-01-24",
+      "face_url": "presets/preset_006/face.png"
     }
   ]
 }
