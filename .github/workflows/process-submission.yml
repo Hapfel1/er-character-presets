@@ -296,11 +296,35 @@ jobs:
       - name: Create preset folder and data
         run: |
           PRESET_ID="${{ steps.generate_id.outputs.preset_id }}"
+          PRESET_NAME="${{ steps.parse.outputs.preset_name }}"
+          AUTHOR="${{ steps.parse.outputs.author }}"
+          TAGS="${{ steps.parse.outputs.tags }}"
+          DESCRIPTION="${{ steps.parse.outputs.description }}"
           APPEARANCE='${{ steps.parse.outputs.appearance }}'
           
           mkdir -p "presets/${PRESET_ID}"
-          echo "$APPEARANCE" | jq '.' > "presets/${PRESET_ID}/data.json"
-      
+          
+          # Create data.json with proper structure
+          TAGS_ARRAY=$(echo "$TAGS" | jq -R 'split(",") | map(gsub("^\\s+|\\s+$";""))')
+          CREATED=$(date +%Y-%m-%d)
+          
+          jq -n \
+            --arg id "$PRESET_ID" \
+            --arg name "$PRESET_NAME" \
+            --arg author "$AUTHOR" \
+            --argjson tags "$TAGS_ARRAY" \
+            --arg desc "$DESCRIPTION" \
+            --argjson appearance "$APPEARANCE" \
+            --arg created "$CREATED" \
+            '{
+              id: $id,
+              name: $name,
+              author: $author,
+              tags: $tags,
+              description: $desc,
+              appearance: $appearance,
+              created: $created
+            }' > "presets/${PRESET_ID}/data.json"
       - name: Copy images
         run: |
           PRESET_ID="${{ steps.generate_id.outputs.preset_id }}"
@@ -386,7 +410,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "feat: add preset ${{ steps.generate_id.outputs.preset_id }}"
+          commit-message: "feat: add preset ${{ steps.parse.outputs.preset_name }}"
           branch: preset-${{ steps.generate_id.outputs.preset_id }}
           title: "[Preset] ${{ steps.parse.outputs.preset_name }}"
           body: |
