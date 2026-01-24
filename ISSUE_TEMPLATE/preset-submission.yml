@@ -20,6 +20,67 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       
+      - name: Check user blocklist/trustlist
+        id: check_user
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const config = JSON.parse(fs.readFileSync('submission-config.json', 'utf8'));
+            
+            const username = context.payload.issue.user.login;
+            console.log(`Checking permissions for user: ${username}`);
+            
+            // Check if user is blocked
+            if (config.blocklist.includes(username)) {
+              console.log(`User ${username} is in blocklist`);
+              core.setOutput('status', 'blocked');
+              core.setOutput('reason', 'Your account is blocked from submitting presets');
+              return;
+            }
+            
+            // Check if user is trusted
+            if (config.trustlist.includes(username)) {
+              console.log(`User ${username} is in trustlist`);
+              core.setOutput('status', 'trusted');
+              core.setOutput('auto_approve', 'true');
+            } else {
+              console.log(`User ${username} requires approval`);
+              core.setOutput('status', 'pending');
+              core.setOutput('auto_approve', 'false');
+            }
+      
+      - name: Handle blocked user
+        if: steps.check_user.outputs.status == 'blocked'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: `❌ ${{ steps.check_user.outputs.reason }}`
+            });
+            
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              state: 'closed',
+              state_reason: 'not_planned'
+            });
+            
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              labels: ['blocked-user']
+            });
+      
+      - name: Stop if user is blocked
+        if: steps.check_user.outputs.status == 'blocked'
+        run: exit 1
+      
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -306,6 +367,7 @@ jobs:
           echo "Updated index.json with preset $PRESET_ID"
       
       - name: Create Pull Request
+        id: create-pr
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -318,6 +380,8 @@ jobs:
             **Name:** ${{ steps.parse.outputs.preset_name }}
             **Author:** ${{ steps.parse.outputs.author }}
             **Tags:** ${{ steps.parse.outputs.tags }}
+            **Submitted by:** @${{ github.event.issue.user.login }}
+            **Status:** ${{ steps.check_user.outputs.status == 'trusted' && '✅ Auto-approved (trusted user)' || '⏳ Awaiting approval' }}
             
             **Description:**
             ${{ steps.parse.outputs.description }}
@@ -340,10 +404,25 @@ jobs:
             - [ ] Images look appropriate
             - [ ] No inappropriate content
             - [ ] Author credited correctly
-          labels: preset-submission,automated-pr
+          labels: ${{ steps.check_user.outputs.status == 'trusted' && 'preset-submission,automated-pr,trusted-user' || 'preset-submission,automated-pr' }}
           add: |
             presets/
             index.json
+      
+      - name: Auto-approve for trusted users
+        if: steps.check_user.outputs.auto_approve == 'true' && steps.create-pr.outputs.pull-request-number != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: ${{ steps.create-pr.outputs.pull-request-number }},
+              event: 'APPROVE',
+              body: '✅ Auto-approved (trusted user)'
+            });
+            
+            console.log('Pull request auto-approved');
       
       - name: Comment on issue with PR link
         if: success()
