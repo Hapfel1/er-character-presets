@@ -154,6 +154,10 @@ jobs:
           # From index.json
           if [ -f index.json ]; then
             while IFS= read -r id; do
+              # Skip empty or invalid IDs
+              if [ -z "$id" ] || ! [[ "$id" =~ ^[0-9]+$ ]]; then
+                continue
+              fi
               # Strip leading zeros immediately (fixes octal bug)
               id=$((10#$id))
               USED_IDS+=("$id")
@@ -164,8 +168,13 @@ jobs:
           if [ -d presets ]; then
             while IFS= read -r folder; do
               if [[ "$folder" =~ preset_([0-9]+) ]]; then
+                id_str="${BASH_REMATCH[1]}"
+                # Skip invalid
+                if [ -z "$id_str" ] || ! [[ "$id_str" =~ ^[0-9]+$ ]]; then
+                  continue
+                fi
                 # Strip leading zeros
-                num=$((10#${BASH_REMATCH[1]}))
+                num=$((10#$id_str))
                 USED_IDS+=("$num")
               fi
             done < <(ls -d presets/preset_* 2>/dev/null | xargs -n1 basename || true)
@@ -208,6 +217,7 @@ jobs:
           
           echo "preset_id=$PRESET_ID" >> $GITHUB_OUTPUT
           echo "✅ Generated ID: $PRESET_ID (issue #$ISSUE_NUM)"
+
       
       - name: Create preset folder and data
         run: |
