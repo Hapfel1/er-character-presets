@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-01-24T19:33:04Z",
+  "last_updated": "2026-01-24T20:35:22Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -95,6 +95,20 @@
       "screenshot_url": "presets/preset_006/preview.png",
       "created": "2026-01-24",
       "face_url": "presets/preset_006/face.png"
+    },
+    {
+      "id": "preset_007",
+      "name": "warpedfacefix",
+      "author": "Hapfel",
+      "description": "warpedface fixed",
+      "tags": [
+        "male"
+      ],
+      "data_url": "presets/preset_007/data.json",
+      "screenshot_url": "presets/preset_007/preview.png",
+      "created": "2026-01-24",
+      "face_url": "presets/preset_007/face.png",
+      "body_url": "presets/preset_007/body.png"
     }
   ]
 }
