@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-01-24T22:05:52Z",
+  "last_updated": "2026-01-24T22:08:08Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -64,6 +64,24 @@
       "screenshot_url": "presets/preset_001/preview.png",
       "face_url": "presets/preset_001/face.png",
       "body_url": "presets/preset_001/body.png"
+    },
+    {
+      "id": "preset_002",
+      "name": "Sorceress Sellen",
+      "author": "ghostlyswat12 (UseTheLfgCoopChannel)",
+      "tags": [
+        "female",
+        "cosplay",
+        "realistic",
+        "young",
+        "lfg"
+      ],
+      "description": "you know her you love her its Sellen in all her glory become sellen and help her achive her gaols of helping herself... wait this makes no sense there cant be two of them erm hmm ok shes from a alternative world boom problem solded ahem anyways help her help her other self achive her gaols and also become elden lord why because why not she got nothing else to do",
+      "created": "2026-01-24",
+      "data_url": "presets/preset_002/data.json",
+      "screenshot_url": "presets/preset_002/preview.png",
+      "face_url": "presets/preset_002/face.png",
+      "body_url": "presets/preset_002/body.png"
     }
   ]
 }
