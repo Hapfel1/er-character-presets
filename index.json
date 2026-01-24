@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-01-24T12:13:37Z",
+  "last_updated": "2026-01-24T12:38:50Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -27,6 +27,19 @@
       ],
       "data_url": "presets/preset_002.json",
       "screenshot_url": "presets/preset_002.png",
+      "downloads": 0,
+      "created": "2026-01-24"
+    },
+    {
+      "id": "preset_003",
+      "name": "testfinal",
+      "author": "hapfel",
+      "description": "test",
+      "tags": [
+        "male"
+      ],
+      "data_url": "presets/preset_003.json",
+      "screenshot_url": "presets/preset_003.png",
       "downloads": 0,
       "created": "2026-01-24"
     }
