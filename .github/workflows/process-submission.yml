@@ -24,6 +24,126 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       
+      - name: Validate issue format
+        id: validate
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+            
+            console.log('Validating issue format...');
+            
+            // Check for required fields in proper format (from submission form)
+            const requiredFields = [
+              { regex: /\*\*Preset Name:\*\*/, name: 'Preset Name' },
+              { regex: /\*\*Author:\*\*/, name: 'Author' },
+              { regex: /\*\*Tags:\*\*/, name: 'Tags' },
+              { regex: /\*\*Description:\*\*/, name: 'Description' },
+              { regex: /```json/, name: 'JSON code block' }
+            ];
+            
+            const missingFields = [];
+            for (const field of requiredFields) {
+              if (!field.regex.test(body)) {
+                missingFields.push(field.name);
+              }
+            }
+            
+            if (missingFields.length > 0) {
+              console.log(`❌ Invalid format. Missing: ${missingFields.join(', ')}`);
+              core.setOutput('valid', 'false');
+              core.setOutput('error', `This issue doesn't match the submission form format. Missing: ${missingFields.join(', ')}`);
+              return;
+            }
+            
+            console.log('✅ Issue format is valid');
+            core.setOutput('valid', 'true');
+      
+      - name: Reject invalid submissions
+        if: steps.validate.outputs.valid == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: `❌ **Invalid submission format**\n\n${{ steps.validate.outputs.error }}\n\nPlease use the preset submission form to submit a valid preset.`
+            });
+            
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              labels: ['invalid-format']
+            });
+      
+      - name: Stop if invalid
+        if: steps.validate.outputs.valid == 'false'
+        run: exit 1
+      
+      - name: Check user blocklist/trustlist
+        id: check_user
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const config = JSON.parse(fs.readFileSync('submission-config.json', 'utf8'));
+            
+            const username = context.payload.issue.user.login;
+            console.log(`Checking permissions for user: ${username}`);
+            
+            // Check if user is blocked
+            if (config.blocklist.includes(username)) {
+              console.log(`User ${username} is in blocklist`);
+              core.setOutput('status', 'blocked');
+              core.setOutput('reason', 'Your account is blocked from submitting presets');
+              return;
+            }
+            
+            // Check if user is trusted
+            if (config.trustlist.includes(username)) {
+              console.log(`User ${username} is in trustlist`);
+              core.setOutput('status', 'trusted');
+              core.setOutput('auto_approve', 'true');
+            } else {
+              console.log(`User ${username} requires approval`);
+              core.setOutput('status', 'pending');
+              core.setOutput('auto_approve', 'false');
+            }
+      
+      - name: Handle blocked user
+        if: steps.check_user.outputs.status == 'blocked'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: `❌ ${{ steps.check_user.outputs.reason }}`
+            });
+            
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              state: 'closed',
+              state_reason: 'not_planned'
+            });
+            
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              labels: ['blocked-user']
+            });
+      
+      - name: Stop if user is blocked
+        if: steps.check_user.outputs.status == 'blocked'
+        run: exit 1
+      
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -416,9 +536,26 @@ jobs:
           body: |
             **ID:** ${{ steps.generate_id.outputs.preset_id }}
             **Author:** ${{ steps.parse.outputs.author }}
+            **Submitted by:** @${{ github.event.issue.user.login }}
+            **Status:** ${{ steps.check_user.outputs.status == 'trusted' && '✅ Auto-approved (trusted user)' || '⏳ Awaiting approval' }}
             
             Closes #${{ github.event.issue.number }}
-          labels: preset-submission
+          labels: ${{ steps.check_user.outputs.status == 'trusted' && 'preset-submission,trusted-user' || 'preset-submission' }}
+      
+      - name: Auto-approve for trusted users
+        if: steps.check_user.outputs.auto_approve == 'true' && steps.create_pr.outputs.pull-request-number != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: ${{ steps.create_pr.outputs.pull-request-number }},
+              event: 'APPROVE',
+              body: '✅ Auto-approved (trusted user)'
+            });
+            
+            console.log('Pull request auto-approved');
       
       - name: Comment on issue
         if: steps.create_pr.outputs.pull-request-number
