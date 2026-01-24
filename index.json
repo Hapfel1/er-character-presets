@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-01-23T12:00:00Z",
+  "last_updated": "2026-01-24T12:13:37Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -8,11 +8,27 @@
       "name": "Test Character",
       "author": "Hapfel",
       "description": "Test preset to demonstrate browser functionality",
-      "tags": ["test", "female"],
+      "tags": [
+        "test",
+        "female"
+      ],
       "data_url": "presets/preset_001.json",
       "screenshot_url": "presets/preset_001.png",
       "downloads": 0,
       "created": "2026-01-23"
+    },
+    {
+      "id": "preset_002",
+      "name": "test",
+      "author": "Hapfel",
+      "description": "test",
+      "tags": [
+        "test"
+      ],
+      "data_url": "presets/preset_002.json",
+      "screenshot_url": "presets/preset_002.png",
+      "downloads": 0,
+      "created": "2026-01-24"
     }
   ]
 }
