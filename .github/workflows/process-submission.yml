@@ -1,0 +1,399 @@
+name: Process Preset Submission
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  process-submission:
+    # Only run when "approved" label is added to preset-submission issues
+    if: |
+      contains(github.event.issue.labels.*.name, 'preset-submission') &&
+      contains(github.event.issue.labels.*.name, 'approved') &&
+      github.event.label.name == 'approved'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pillow requests
+      
+      - name: Parse issue and extract data
+        id: parse
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+            
+            console.log('Parsing issue body...');
+            
+            // Extract data from issue body
+            const nameMatch = body.match(/\*\*Preset Name:\*\*\s*(.+)/);
+            const authorMatch = body.match(/\*\*Author:\*\*\s*(.+)/);
+            const tagsMatch = body.match(/\*\*Tags:\*\*\s*(.+)/);
+            const descMatch = body.match(/\*\*Description:\*\*\s*\n([\s\S]+?)\n\n---/);
+            
+            if (!nameMatch || !authorMatch || !tagsMatch || !descMatch) {
+              console.error('Missing fields:');
+              console.error('Name:', nameMatch ? 'found' : 'MISSING');
+              console.error('Author:', authorMatch ? 'found' : 'MISSING');
+              console.error('Tags:', tagsMatch ? 'found' : 'MISSING');
+              console.error('Description:', descMatch ? 'found' : 'MISSING');
+              throw new Error('Missing required fields in issue body');
+            }
+            
+            const presetName = nameMatch[1].trim();
+            const author = authorMatch[1].trim();
+            const tags = tagsMatch[1].trim();
+            const description = descMatch[1].trim();
+            
+            console.log('Extracted metadata:');
+            console.log('Name:', presetName);
+            console.log('Author:', author);
+            console.log('Tags:', tags);
+            
+            // Extract appearance JSON from code block
+            const jsonMatch = body.match(/```json\s*\n([\s\S]+?)\n```/);
+            if (!jsonMatch) {
+              console.error('No JSON block found in issue body');
+              throw new Error('Missing appearance JSON in code block');
+            }
+            
+            let appearance;
+            try {
+              appearance = JSON.parse(jsonMatch[1]);
+              console.log('Successfully parsed appearance JSON');
+            } catch (e) {
+              console.error('Failed to parse JSON:', e.message);
+              throw new Error('Invalid JSON in appearance data: ' + e.message);
+            }
+            
+            // Set outputs
+            core.setOutput('preset_name', presetName);
+            core.setOutput('author', author);
+            core.setOutput('tags', tags);
+            core.setOutput('description', description);
+            core.setOutput('appearance_json', JSON.stringify(appearance));
+            core.setOutput('issue_number', issue.number);
+            
+            console.log('All data extracted successfully');
+            return { presetName, author, tags, description };
+      
+      - name: Download images from issue
+        id: download_images
+        run: |
+          echo "Extracting image URLs from issue..."
+          
+          # Get issue body with images
+          ISSUE_BODY=$(cat <<'EOF'
+          ${{ github.event.issue.body }}
+          EOF
+          )
+          
+          # Extract image URLs (GitHub markdown format: ![alt](url))
+          echo "$ISSUE_BODY" | grep -oP '!\[.*?\]\(\K[^)]+' > image_urls.txt || true
+          
+          # Check if we found images
+          IMAGE_COUNT=$(wc -l < image_urls.txt)
+          echo "Found $IMAGE_COUNT images"
+          
+          if [ "$IMAGE_COUNT" -lt 2 ]; then
+            echo "Error: Need at least 2 images (face and body)"
+            echo "Found only $IMAGE_COUNT images"
+            cat image_urls.txt
+            exit 1
+          fi
+          
+          # Download images
+          counter=1
+          while IFS= read -r url; do
+            echo "Downloading image $counter from: $url"
+            
+            # Determine extension from URL or default to .png
+            ext="${url##*.}"
+            case "$ext" in
+              jpg|jpeg|png|JPG|JPEG|PNG)
+                ;;
+              *)
+                ext="png"
+                ;;
+            esac
+            
+            # Download with curl
+            if [ $counter -eq 1 ]; then
+              curl -L -o "face.$ext" "$url" || wget -O "face.$ext" "$url"
+            elif [ $counter -eq 2 ]; then
+              curl -L -o "body.$ext" "$url" || wget -O "body.$ext" "$url"
+            elif [ $counter -eq 3 ]; then
+              curl -L -o "preview.$ext" "$url" || wget -O "preview.$ext" "$url"
+            fi
+            
+            counter=$((counter + 1))
+            [ $counter -gt 3 ] && break
+          done < image_urls.txt
+          
+          # Verify downloads
+          ls -lh face.* body.* preview.* 2>/dev/null || ls -lh face.* body.* || exit 1
+          
+          echo "Images downloaded successfully"
+          echo "has_preview=$([ -f preview.* ] && echo 'true' || echo 'false')" >> $GITHUB_OUTPUT
+      
+      - name: Generate preset ID
+        id: generate_id
+        run: |
+          echo "Generating next preset ID..."
+          
+          if [ -f index.json ]; then
+            # Get last preset ID
+            LAST_ID=$(jq -r '.presets[-1].id // "preset_000"' index.json)
+            echo "Last preset ID: $LAST_ID"
+            
+            # Extract number and increment
+            NUM=$(echo $LAST_ID | sed 's/preset_0*//')
+            NEXT_NUM=$((NUM + 1))
+            PRESET_ID=$(printf "preset_%03d" $NEXT_NUM)
+          else
+            echo "No index.json found, starting with preset_001"
+            PRESET_ID="preset_001"
+          fi
+          
+          echo "Generated preset ID: $PRESET_ID"
+          echo "preset_id=$PRESET_ID" >> $GITHUB_OUTPUT
+      
+      - name: Create preset files
+        run: |
+          PRESET_ID="${{ steps.generate_id.outputs.preset_id }}"
+          PRESET_NAME="${{ steps.parse.outputs.preset_name }}"
+          AUTHOR="${{ steps.parse.outputs.author }}"
+          TAGS="${{ steps.parse.outputs.tags }}"
+          DESCRIPTION="${{ steps.parse.outputs.description }}"
+          APPEARANCE='${{ steps.parse.outputs.appearance_json }}'
+          
+          echo "Creating preset files for $PRESET_ID..."
+          
+          mkdir -p presets
+          
+          # Create preset JSON with proper escaping
+          cat > presets/${PRESET_ID}.json << 'PRESETEOF'
+          {
+            "id": "$PRESET_ID",
+            "name": "$PRESET_NAME",
+            "author": "$AUTHOR",
+            "description": "$DESCRIPTION",
+            "tags": $TAGS_ARRAY,
+            "appearance": $APPEARANCE,
+            "screenshot_url": "presets/$PRESET_ID.png",
+            "downloads": 0,
+            "created": "$CREATED_DATE"
+          }
+          PRESETEOF
+          
+          # Replace placeholders
+          TAGS_ARRAY=$(echo "$TAGS" | jq -R 'split(",") | map(gsub("^\\s+|\\s+$";""))')
+          CREATED_DATE=$(date +%Y-%m-%d)
+          
+          # Use jq to properly construct JSON
+          jq -n \
+            --arg id "$PRESET_ID" \
+            --arg name "$PRESET_NAME" \
+            --arg author "$AUTHOR" \
+            --arg description "$DESCRIPTION" \
+            --argjson tags "$TAGS_ARRAY" \
+            --argjson appearance "$APPEARANCE" \
+            --arg screenshot "presets/${PRESET_ID}.png" \
+            --arg created "$CREATED_DATE" \
+            '{
+              id: $id,
+              name: $name,
+              author: $author,
+              description: $description,
+              tags: $tags,
+              appearance: $appearance,
+              screenshot_url: $screenshot,
+              downloads: 0,
+              created: $created
+            }' > presets/${PRESET_ID}.json
+          
+          echo "Created presets/${PRESET_ID}.json"
+          
+          # Copy images (handle different extensions)
+          for ext in png jpg jpeg PNG JPG JPEG; do
+            if [ -f "face.$ext" ]; then
+              cp "face.$ext" presets/${PRESET_ID}.png
+              echo "Copied face.$ext to presets/${PRESET_ID}.png"
+              break
+            fi
+          done
+          
+          for ext in png jpg jpeg PNG JPG JPEG; do
+            if [ -f "body.$ext" ]; then
+              cp "body.$ext" presets/${PRESET_ID}_body.png
+              echo "Copied body.$ext to presets/${PRESET_ID}_body.png"
+              break
+            fi
+          done
+          
+          # Optional preview image
+          for ext in png jpg jpeg PNG JPG JPEG; do
+            if [ -f "preview.$ext" ]; then
+              cp "preview.$ext" presets/${PRESET_ID}_preview.png
+              echo "Copied preview.$ext to presets/${PRESET_ID}_preview.png"
+              break
+            fi
+          done
+          
+          echo "All preset files created successfully"
+          ls -lh presets/${PRESET_ID}*
+      
+      - name: Update index.json
+        run: |
+          PRESET_ID="${{ steps.generate_id.outputs.preset_id }}"
+          PRESET_NAME="${{ steps.parse.outputs.preset_name }}"
+          AUTHOR="${{ steps.parse.outputs.author }}"
+          TAGS="${{ steps.parse.outputs.tags }}"
+          DESCRIPTION="${{ steps.parse.outputs.description }}"
+          
+          echo "Updating index.json..."
+          
+          # Create index if doesn't exist
+          if [ ! -f index.json ]; then
+            echo "Creating new index.json"
+            cat > index.json << 'INDEXEOF'
+          {
+            "version": "1.0.0",
+            "last_updated": "",
+            "base_url": "https://raw.githubusercontent.com/${{ github.repository }}/main/",
+            "presets": []
+          }
+          INDEXEOF
+          fi
+          
+          # Create index entry
+          TAGS_ARRAY=$(echo "$TAGS" | jq -R 'split(",") | map(gsub("^\\s+|\\s+$";""))')
+          CREATED_DATE=$(date +%Y-%m-%d)
+          UPDATED_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          
+          INDEX_ENTRY=$(jq -n \
+            --arg id "$PRESET_ID" \
+            --arg name "$PRESET_NAME" \
+            --arg author "$AUTHOR" \
+            --arg description "$DESCRIPTION" \
+            --argjson tags "$TAGS_ARRAY" \
+            --arg data_url "presets/${PRESET_ID}.json" \
+            --arg screenshot_url "presets/${PRESET_ID}.png" \
+            --arg created "$CREATED_DATE" \
+            '{
+              id: $id,
+              name: $name,
+              author: $author,
+              description: $description,
+              tags: $tags,
+              data_url: $data_url,
+              screenshot_url: $screenshot_url,
+              downloads: 0,
+              created: $created
+            }')
+          
+          # Add entry to index
+          jq --argjson entry "$INDEX_ENTRY" \
+             --arg updated "$UPDATED_TIME" \
+             '.presets += [$entry] | .last_updated = $updated' \
+             index.json > index.tmp && mv index.tmp index.json
+          
+          echo "index.json updated successfully"
+          echo "New preset count: $(jq '.presets | length' index.json)"
+      
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add index.json presets/
+          git commit -m "Add preset: ${{ steps.parse.outputs.preset_name }} by ${{ steps.parse.outputs.author }}" \
+                     -m "Automatically processed from issue #${{ steps.parse.outputs.issue_number }}"
+          git push
+          
+          echo "Changes committed and pushed successfully"
+      
+      - name: Comment success on issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const presetId = '${{ steps.generate_id.outputs.preset_id }}';
+            const presetName = '${{ steps.parse.outputs.preset_name }}';
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ steps.parse.outputs.issue_number }},
+              body: `## ✅ Preset Added Successfully!\n\n` +
+                    `Your preset **"${presetName}"** has been added to the database as \`${presetId}\`.\n\n` +
+                    `🎉 It's now live and available in the preset browser!\n\n` +
+                    `Users can find it by:\n` +
+                    `- Clicking "Browse Community Presets" in the tool\n` +
+                    `- Clicking the Refresh button\n` +
+                    `- Searching for "${presetName}"\n\n` +
+                    `Thank you for contributing to the community! 🙏`
+            });
+            
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ steps.parse.outputs.issue_number }},
+              state: 'closed'
+            });
+      
+      - name: Handle errors
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: `## ❌ Automated Processing Failed\n\n` +
+                    `There was an error processing your submission automatically.\n\n` +
+                    `**Error details:** Check the [workflow run](${context.payload.repository.html_url}/actions/runs/${context.runId}) for details.\n\n` +
+                    `A maintainer will review the issue and process it manually.\n\n` +
+                    `Common issues:\n` +
+                    `- Missing or invalid appearance JSON\n` +
+                    `- Images not properly attached\n` +
+                    `- Formatting errors in issue body`
+            });
+            
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              labels: ['processing-failed']
+            });
+            
+            // Remove approved label so it doesn't retry
+            try {
+              await github.rest.issues.removeLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.issue.number,
+                name: 'approved'
+              });
+            } catch (e) {
+              console.log('Could not remove approved label:', e.message);
+            }
