@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-01-24T17:08:29Z",
+  "last_updated": "2026-01-24T18:02:38Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -48,6 +48,20 @@
       "created": "2026-01-24",
       "face_url": "presets/preset_003/face.png",
       "body_url": "presets/preset_003/body.png"
+    },
+    {
+      "id": "preset_004",
+      "name": "test",
+      "author": "Hapfel",
+      "description": "testtest",
+      "tags": [
+        "female"
+      ],
+      "data_url": "presets/preset_004/data.json",
+      "screenshot_url": "presets/preset_004/preview.png",
+      "created": "2026-01-24",
+      "face_url": "presets/preset_004/face.png",
+      "body_url": "presets/preset_004/body.png"
     }
   ]
 }
