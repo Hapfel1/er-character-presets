@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-01-24T20:58:52Z",
+  "last_updated": "2026-01-24T21:02:28Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -33,6 +33,22 @@
       "created": "2026-01-24",
       "face_url": "presets/preset_008/face.png",
       "body_url": "presets/preset_008/body.png"
+    },
+    {
+      "id": "preset_000",
+      "name": "Mr Mog",
+      "author": "ghostlyswat12 (UseTheLfgCoopChannel)",
+      "description": "from the mascot of the lfg coop channels Mr lfg guy.  so this characters name is Mr Mog and he was born mogging and never stopped through out his whole life he has mogged and now you too can mog along side him on his quest to become the elden lord will he obtain his goal and become THE MOGGED LORD Mr Mog wants to become the lord so he can help everyone mog and become the ultimate version of themselfs seems pretty noble to me WILL YOU HELP HIM MOG HIS WAS TO VICTORY",
+      "tags": [
+        "male",
+        "meme",
+        "young"
+      ],
+      "data_url": "presets/preset_000/data.json",
+      "screenshot_url": "presets/preset_000/preview.png",
+      "created": "2026-01-24",
+      "face_url": "presets/preset_000/face.png",
+      "preview_url": "presets/preset_000/preview.png"
     }
   ]
 }
