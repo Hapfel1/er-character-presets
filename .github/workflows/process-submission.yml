@@ -11,7 +11,6 @@ permissions:
 
 jobs:
   create-pr-from-issue:
-    # Only process issues with preset-submission label
     if: contains(github.event.issue.labels.*.name, 'preset-submission')
     runs-on: ubuntu-latest
     
@@ -41,15 +40,14 @@ jobs:
             
             console.log('Parsing issue #' + issue.number);
             
-            // Extract data from issue body
+            // Extract data
             const nameMatch = body.match(/\*\*Preset Name:\*\*\s*(.+)/);
             const authorMatch = body.match(/\*\*Author:\*\*\s*(.+)/);
             const tagsMatch = body.match(/\*\*Tags:\*\*\s*(.+)/);
             const descMatch = body.match(/\*\*Description:\*\*\s*\n([\s\S]+?)\n\n---/);
             
             if (!nameMatch || !authorMatch || !tagsMatch || !descMatch) {
-              console.error('Missing required fields');
-              throw new Error('Missing required fields in issue body');
+              throw new Error('Missing required fields');
             }
             
             const presetName = nameMatch[1].trim();
@@ -57,9 +55,7 @@ jobs:
             const tags = tagsMatch[1].trim();
             const description = descMatch[1].trim();
             
-            console.log('Extracted:', {presetName, author, tags});
-            
-            // Extract appearance JSON
+            // Extract JSON
             const jsonMatch = body.match(/```json\s*\n([\s\S]+?)\n```/);
             if (!jsonMatch) {
               throw new Error('Missing appearance JSON');
@@ -67,37 +63,28 @@ jobs:
             
             const appearance = JSON.parse(jsonMatch[1]);
             
-            // Set outputs
             core.setOutput('preset_name', presetName);
             core.setOutput('author', author);
             core.setOutput('tags', tags);
             core.setOutput('description', description);
             core.setOutput('appearance_json', JSON.stringify(appearance));
             core.setOutput('issue_number', issue.number);
-            
-            return { presetName, author, tags, description };
       
       - name: Generate preset ID
         id: generate_id
         run: |
-          echo "Generating next preset ID..."
-          
           if [ -f index.json ]; then
             LAST_ID=$(jq -r '.presets[-1].id // "preset_000"' index.json)
-            echo "Last preset ID: $LAST_ID"
-            
             NUM=$(echo $LAST_ID | sed 's/preset_0*//')
             NEXT_NUM=$((NUM + 1))
             PRESET_ID=$(printf "preset_%03d" $NEXT_NUM)
           else
-            echo "No index.json found, starting with preset_001"
             PRESET_ID="preset_001"
           fi
           
-          echo "Generated preset ID: $PRESET_ID"
           echo "preset_id=$PRESET_ID" >> $GITHUB_OUTPUT
       
-      - name: Download images from issue
+      - name: Download and extract ZIP from issue
         id: download_images
         uses: actions/github-script@v7
         with:
@@ -105,81 +92,117 @@ jobs:
             const issue = context.payload.issue;
             const fs = require('fs');
             const https = require('https');
+            const { execSync } = require('child_process');
             
-            // Find images in issue body
             const body = issue.body || '';
-            const imageRegex = /!\[([^\]]*)\]\((https:\/\/[^)]+)\)/g;
-            const images = [...body.matchAll(imageRegex)];
             
-            console.log(`Found ${images.length} images in issue body`);
+            // Look for ZIP file attachment
+            // GitHub attaches files as: [filename.zip](https://github.com/...)
+            const zipRegex = /\[([^\]]+\.zip)\]\((https:\/\/[^)]+)\)/gi;
+            const zipMatches = [...body.matchAll(zipRegex)];
             
-            // Map image labels to filenames
-            const imageMap = {
-              'face': null,
-              'body': null,
-              'preview': null
-            };
+            console.log(`Found ${zipMatches.length} ZIP files`);
             
-            for (const match of images) {
-              const altText = match[1].toLowerCase();
-              const url = match[2];
+            let hasImages = false;
+            
+            if (zipMatches.length > 0) {
+              // Download first ZIP file
+              const zipUrl = zipMatches[0][2];
+              const zipFilename = 'preset_images.zip';
               
-              console.log(`Processing image: ${altText} from ${url}`);
+              console.log(`Downloading ZIP from: ${zipUrl}`);
               
-              // Determine image type from alt text
-              let imageType = null;
-              if (altText.includes('face')) {
-                imageType = 'face';
-              } else if (altText.includes('body')) {
-                imageType = 'body';
-              } else if (altText.includes('preview')) {
-                imageType = 'preview';
-              }
-              
-              if (imageType && !imageMap[imageType]) {
-                // Download image
-                const ext = url.match(/\.(png|jpg|jpeg|gif)(\?|$)/i)?.[1] || 'png';
-                const filename = `${imageType}.${ext}`;
-                
-                await new Promise((resolve, reject) => {
-                  https.get(url, (response) => {
-                    if (response.statusCode === 302 || response.statusCode === 301) {
-                      // Follow redirect
-                      https.get(response.headers.location, (redirectResponse) => {
-                        const file = fs.createWriteStream(filename);
-                        redirectResponse.pipe(file);
-                        file.on('finish', () => {
-                          file.close();
-                          console.log(`Downloaded ${imageType} as ${filename}`);
-                          resolve();
-                        });
-                        file.on('error', reject);
-                      }).on('error', reject);
-                    } else {
-                      const file = fs.createWriteStream(filename);
-                      response.pipe(file);
+              await new Promise((resolve, reject) => {
+                https.get(zipUrl, (response) => {
+                  if (response.statusCode === 302 || response.statusCode === 301) {
+                    https.get(response.headers.location, (redirectResponse) => {
+                      const file = fs.createWriteStream(zipFilename);
+                      redirectResponse.pipe(file);
                       file.on('finish', () => {
                         file.close();
-                        console.log(`Downloaded ${imageType} as ${filename}`);
                         resolve();
                       });
                       file.on('error', reject);
-                    }
-                  }).on('error', reject);
-                });
+                    }).on('error', reject);
+                  } else {
+                    const file = fs.createWriteStream(zipFilename);
+                    response.pipe(file);
+                    file.on('finish', () => {
+                      file.close();
+                      resolve();
+                    });
+                    file.on('error', reject);
+                  }
+                }).on('error', reject);
+              });
+              
+              // Extract ZIP
+              console.log('Extracting ZIP...');
+              execSync(`unzip -o ${zipFilename}`);
+              
+              // Check for extracted images
+              const hasFace = fs.existsSync('face.png') || fs.existsSync('face.jpg') || fs.existsSync('face.jpeg');
+              const hasBody = fs.existsSync('body.png') || fs.existsSync('body.jpg') || fs.existsSync('body.jpeg');
+              const hasPreview = fs.existsSync('preview.png') || fs.existsSync('preview.jpg') || fs.existsSync('preview.jpeg');
+              
+              console.log(`Extracted images - Face: ${hasFace}, Body: ${hasBody}, Preview: ${hasPreview}`);
+              
+              hasImages = hasFace || hasBody;
+              
+              core.setOutput('has_face', hasFace ? 'true' : 'false');
+              core.setOutput('has_body', hasBody ? 'true' : 'false');
+              core.setOutput('has_preview', hasPreview ? 'true' : 'false');
+              core.setOutput('has_images', hasImages ? 'true' : 'false');
+            } else {
+              // Fallback: look for individual images (legacy support)
+              const imageRegex = /!\[([^\]]*)\]\((https:\/\/[^)]+)\)/g;
+              const images = [...body.matchAll(imageRegex)];
+              
+              console.log(`No ZIP found, checking for individual images: ${images.length}`);
+              
+              const imageMap = { 'face': null, 'body': null, 'preview': null };
+              
+              for (const match of images) {
+                const altText = match[1].toLowerCase();
+                const url = match[2];
                 
-                imageMap[imageType] = filename;
+                let imageType = null;
+                if (altText.includes('face')) imageType = 'face';
+                else if (altText.includes('body')) imageType = 'body';
+                else if (altText.includes('preview')) imageType = 'preview';
+                
+                if (imageType && !imageMap[imageType]) {
+                  const ext = url.match(/\.(png|jpg|jpeg|gif)(\?|$)/i)?.[1] || 'png';
+                  const filename = `${imageType}.${ext}`;
+                  
+                  await new Promise((resolve, reject) => {
+                    https.get(url, (response) => {
+                      if (response.statusCode === 302 || response.statusCode === 301) {
+                        https.get(response.headers.location, (redirectResponse) => {
+                          const file = fs.createWriteStream(filename);
+                          redirectResponse.pipe(file);
+                          file.on('finish', () => { file.close(); resolve(); });
+                          file.on('error', reject);
+                        }).on('error', reject);
+                      } else {
+                        const file = fs.createWriteStream(filename);
+                        response.pipe(file);
+                        file.on('finish', () => { file.close(); resolve(); });
+                        file.on('error', reject);
+                      }
+                    }).on('error', reject);
+                  });
+                  
+                  imageMap[imageType] = filename;
+                }
               }
+              
+              hasImages = imageMap.face || imageMap.body;
+              core.setOutput('has_face', imageMap.face ? 'true' : 'false');
+              core.setOutput('has_body', imageMap.body ? 'true' : 'false');
+              core.setOutput('has_preview', imageMap.preview ? 'true' : 'false');
+              core.setOutput('has_images', hasImages ? 'true' : 'false');
             }
-            
-            // Check if we have at least face or body
-            const hasImages = imageMap.face || imageMap.body;
-            console.log('Image map:', imageMap);
-            
-            core.setOutput('has_face', imageMap.face ? 'true' : 'false');
-            core.setOutput('has_body', imageMap.body ? 'true' : 'false');
-            core.setOutput('has_preview', imageMap.preview ? 'true' : 'false');
-            core.setOutput('has_images', hasImages ? 'true' : 'false');
       
       - name: Create preset files
         run: |
@@ -190,11 +213,9 @@ jobs:
           DESCRIPTION="${{ steps.parse.outputs.description }}"
           APPEARANCE='${{ steps.parse.outputs.appearance_json }}'
           
-          echo "Creating preset files for $PRESET_ID..."
-          
           mkdir -p presets
           
-          # Create preset JSON
+          # Create JSON
           TAGS_ARRAY=$(echo "$TAGS" | jq -R 'split(",") | map(gsub("^\\s+|\\s+$";""))')
           CREATED_DATE=$(date +%Y-%m-%d)
           
@@ -219,51 +240,41 @@ jobs:
               created: $created
             }' > presets/${PRESET_ID}.json
           
-          echo "Created presets/${PRESET_ID}.json"
-          
-          # Copy images with preset ID naming
+          # Copy images
           HAS_FACE="${{ steps.download_images.outputs.has_face }}"
           HAS_BODY="${{ steps.download_images.outputs.has_body }}"
           HAS_PREVIEW="${{ steps.download_images.outputs.has_preview }}"
           
           if [ "$HAS_FACE" = "true" ]; then
-            for ext in png jpg jpeg gif; do
+            for ext in png jpg jpeg; do
               if [ -f "face.$ext" ]; then
                 cp "face.$ext" "presets/${PRESET_ID}_face.png"
-                # Also use as main screenshot
                 cp "face.$ext" "presets/${PRESET_ID}.png"
-                echo "Copied face image"
                 break
               fi
             done
           fi
           
           if [ "$HAS_BODY" = "true" ]; then
-            for ext in png jpg jpeg gif; do
+            for ext in png jpg jpeg; do
               if [ -f "body.$ext" ]; then
                 cp "body.$ext" "presets/${PRESET_ID}_body.png"
-                # If no face, use body as main screenshot
                 if [ "$HAS_FACE" != "true" ]; then
                   cp "body.$ext" "presets/${PRESET_ID}.png"
                 fi
-                echo "Copied body image"
                 break
               fi
             done
           fi
           
           if [ "$HAS_PREVIEW" = "true" ]; then
-            for ext in png jpg jpeg gif; do
+            for ext in png jpg jpeg; do
               if [ -f "preview.$ext" ]; then
                 cp "preview.$ext" "presets/${PRESET_ID}_preview.png"
-                echo "Copied preview image"
                 break
               fi
             done
           fi
-          
-          echo "Preset files created successfully"
-          ls -lh presets/${PRESET_ID}*
       
       - name: Update index.json
         run: |
@@ -273,18 +284,15 @@ jobs:
           TAGS="${{ steps.parse.outputs.tags }}"
           DESCRIPTION="${{ steps.parse.outputs.description }}"
           
-          echo "Updating index.json..."
-          
           if [ ! -f index.json ]; then
-            echo "Creating new index.json"
-            cat > index.json << 'INDEXEOF'
+            cat > index.json << 'EOF'
           {
             "version": "1.0.0",
             "last_updated": "",
             "base_url": "https://raw.githubusercontent.com/${{ github.repository }}/main/",
             "presets": []
           }
-          INDEXEOF
+          EOF
           fi
           
           TAGS_ARRAY=$(echo "$TAGS" | jq -R 'split(",") | map(gsub("^\\s+|\\s+$";""))')
@@ -316,8 +324,6 @@ jobs:
              --arg updated "$UPDATED_TIME" \
              '.presets += [$entry] | .last_updated = $updated' \
              index.json > index.tmp && mv index.tmp index.json
-          
-          echo "index.json updated successfully"
       
       - name: Create Pull Request
         id: create_pr
@@ -329,55 +335,34 @@ jobs:
           delete-branch: true
           title: "[Preset] ${{ steps.parse.outputs.preset_name }} by ${{ steps.parse.outputs.author }}"
           body: |
-            ## Preset Submission from Issue #${{ steps.parse.outputs.issue_number }}
+            ## Preset from Issue #${{ steps.parse.outputs.issue_number }}
             
-            **Preset ID:** `${{ steps.generate_id.outputs.preset_id }}`
+            **ID:** `${{ steps.generate_id.outputs.preset_id }}`
             **Name:** ${{ steps.parse.outputs.preset_name }}
             **Author:** ${{ steps.parse.outputs.author }}
-            **Tags:** ${{ steps.parse.outputs.tags }}
             
-            **Description:**
-            ${{ steps.parse.outputs.description }}
-            
-            ---
-            
-            ### Files Added:
-            - `presets/${{ steps.generate_id.outputs.preset_id }}.json` - Preset data
-            - `presets/${{ steps.generate_id.outputs.preset_id }}.png` - Main screenshot
-            - `presets/${{ steps.generate_id.outputs.preset_id }}_face.png` - Face screenshot (if provided)
-            - `presets/${{ steps.generate_id.outputs.preset_id }}_body.png` - Body screenshot (if provided)
-            - Updated `index.json`
-            
-            ---
-            
-            **Review this PR and merge to add the preset to the database.**
+            **Review and merge to add preset.**
             
             Original issue: #${{ steps.parse.outputs.issue_number }}
           labels: preset-submission
       
-      - name: Comment on issue with PR link
+      - name: Comment on issue
         uses: actions/github-script@v7
         with:
           script: |
             const prNumber = '${{ steps.create_pr.outputs.pull-request-number }}';
             const prUrl = '${{ steps.create_pr.outputs.pull-request-url }}';
-            const presetId = '${{ steps.generate_id.outputs.preset_id }}';
             
             if (prNumber && prUrl) {
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: ${{ steps.parse.outputs.issue_number }},
-                body: `## ✅ Preset Processing Complete!\n\n` +
-                      `Your preset has been processed and a Pull Request has been created.\n\n` +
-                      `**Preset ID:** \`${presetId}\`\n` +
-                      `**Pull Request:** #${prNumber}\n` +
-                      `**Link:** ${prUrl}\n\n` +
-                      `The maintainer will review and merge the PR to add your preset to the database.\n\n` +
-                      `Thank you for contributing! 🎉`
+                body: `## ✅ Preset Processed!\n\n` +
+                      `PR created: ${prUrl}\n\n` +
+                      `The maintainer will review and merge. Thank you!`
               });
               
-              // Add label to indicate PR created
               await github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -395,14 +380,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.payload.issue.number,
-              body: `## ❌ Automated Processing Failed\n\n` +
-                    `There was an error processing your submission.\n\n` +
-                    `**Error details:** Check the [workflow run](${context.payload.repository.html_url}/actions/runs/${context.runId}) for details.\n\n` +
-                    `The maintainer has been notified and will process your submission manually.\n\n` +
-                    `Common issues:\n` +
-                    `- Missing or invalid appearance JSON\n` +
-                    `- Images not properly attached\n` +
-                    `- Formatting errors in issue body`
+              body: `## ❌ Processing Failed\n\nCheck [workflow run](${context.payload.repository.html_url}/actions/runs/${context.runId})`
             });
             
             await github.rest.issues.addLabels({
