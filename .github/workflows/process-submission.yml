@@ -11,7 +11,6 @@ permissions:
 
 jobs:
   create-pr-from-issue:
-    if: contains(github.event.issue.labels.*.name, 'preset-submission')
     runs-on: ubuntu-latest
     
     steps:
