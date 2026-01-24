@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-01-24T21:02:28Z",
+  "last_updated": "2026-01-24T21:17:09Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -49,6 +49,21 @@
       "created": "2026-01-24",
       "face_url": "presets/preset_000/face.png",
       "preview_url": "presets/preset_000/preview.png"
+    },
+    {
+      "id": "preset_000",
+      "name": "Patches",
+      "author": "2Pz",
+      "description": "Patches",
+      "tags": [
+        "male",
+        "cosplay"
+      ],
+      "data_url": "presets/preset_000/data.json",
+      "screenshot_url": "presets/preset_000/preview.png",
+      "created": "2026-01-24",
+      "face_url": "presets/preset_000/face.png",
+      "body_url": "presets/preset_000/body.png"
     }
   ]
 }
