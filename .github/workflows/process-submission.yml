@@ -87,61 +87,138 @@ jobs:
             const issue = context.payload.issue;
             const body = issue.body || '';
             
-            // Find attachment URL
-            const attachmentRegex = /https:\/\/github\.com\/[^\/]+\/[^\/]+\/files\/\d+\/[^\s)]+\.zip/g;
-            const attachments = body.match(attachmentRegex) || [];
+            console.log('=== Starting ZIP download ===');
             
-            console.log('Found attachments:', attachments);
+            // Find attachment URL - try multiple patterns
+            const patterns = [
+              /https:\/\/github\.com\/[^\/]+\/[^\/]+\/files\/\d+\/[^\s)]+\.zip/g,
+              /https:\/\/github\.com\/user-attachments\/files\/\d+\/[^\s)]+\.zip/g,
+              /\[([^\]]+\.zip)\]\((https:\/\/[^)]+)\)/gi
+            ];
             
-            if (attachments.length === 0) {
-              console.log('No ZIP attachment found');
+            let zipUrl = null;
+            for (const pattern of patterns) {
+              const matches = body.match(pattern);
+              if (matches && matches.length > 0) {
+                zipUrl = matches[0];
+                // If it's markdown format, extract URL from parens
+                if (zipUrl.includes('](')) {
+                  const urlMatch = zipUrl.match(/\((https:\/\/[^)]+)\)/);
+                  if (urlMatch) zipUrl = urlMatch[1];
+                }
+                break;
+              }
+            }
+            
+            if (!zipUrl) {
+              console.log('❌ No ZIP attachment found in issue body');
+              console.log('Issue body preview:', body.substring(0, 500));
               core.setOutput('has_face', 'false');
               core.setOutput('has_body', 'false');
               core.setOutput('has_preview', 'false');
               return;
             }
             
-            const zipUrl = attachments[0];
-            console.log('Downloading ZIP from:', zipUrl);
+            console.log('✅ Found ZIP URL:', zipUrl);
             
             // Download ZIP
-            await new Promise((resolve, reject) => {
-              const file = fs.createWriteStream('preset_images.zip');
-              https.get(zipUrl, (response) => {
-                response.pipe(file);
-                file.on('finish', () => {
-                  file.close();
-                  console.log('ZIP downloaded');
-                  resolve();
-                });
-              }).on('error', (err) => {
-                fs.unlink('preset_images.zip', () => {});
-                reject(err);
-              });
-            });
+            const zipFilename = 'preset_images.zip';
             
-            // Extract ZIP
             try {
-              execSync('unzip -q preset_images.zip', { stdio: 'inherit' });
-              console.log('ZIP extracted');
+              await new Promise((resolve, reject) => {
+                const downloadFile = (url, attempt = 1) => {
+                  console.log(`Downloading (attempt ${attempt})...`);
+                  
+                  https.get(url, { 
+                    headers: { 'User-Agent': 'GitHub-Actions' }
+                  }, (response) => {
+                    // Handle redirects
+                    if (response.statusCode === 302 || response.statusCode === 301) {
+                      const redirectUrl = response.headers.location;
+                      console.log(`Following redirect to: ${redirectUrl}`);
+                      downloadFile(redirectUrl, attempt);
+                      return;
+                    }
+                    
+                    if (response.statusCode !== 200) {
+                      reject(new Error(`HTTP ${response.statusCode}`));
+                      return;
+                    }
+                    
+                    const file = fs.createWriteStream(zipFilename);
+                    response.pipe(file);
+                    
+                    file.on('finish', () => {
+                      file.close();
+                      const size = fs.statSync(zipFilename).size;
+                      console.log(`✅ Downloaded ${size} bytes`);
+                      resolve();
+                    });
+                    
+                    file.on('error', (err) => {
+                      fs.unlinkSync(zipFilename);
+                      reject(err);
+                    });
+                  }).on('error', reject);
+                };
+                
+                downloadFile(zipUrl);
+              });
             } catch (err) {
-              console.log('Failed to extract ZIP:', err);
+              console.log('❌ Download failed:', err.message);
               core.setOutput('has_face', 'false');
               core.setOutput('has_body', 'false');
               core.setOutput('has_preview', 'false');
               return;
             }
             
-            // Check for images
-            const hasFace = fs.existsSync('face.png') || fs.existsSync('face.jpg') || fs.existsSync('face.jpeg');
-            const hasBody = fs.existsSync('body.png') || fs.existsSync('body.jpg') || fs.existsSync('body.jpeg');
-            const hasPreview = fs.existsSync('preview.png') || fs.existsSync('preview.jpg') || fs.existsSync('preview.jpeg');
+            // Extract ZIP
+            console.log('=== Extracting ZIP ===');
+            try {
+              const output = execSync('unzip -o preset_images.zip', { encoding: 'utf8' });
+              console.log('Extraction output:', output);
+              
+              // List extracted files
+              const files = execSync('ls -la', { encoding: 'utf8' });
+              console.log('Files after extraction:\n', files);
+            } catch (err) {
+              console.log('❌ Extraction failed:', err.message);
+              core.setOutput('has_face', 'false');
+              core.setOutput('has_body', 'false');
+              core.setOutput('has_preview', 'false');
+              return;
+            }
             
-            console.log('Images found - Face:', hasFace, 'Body:', hasBody, 'Preview:', hasPreview);
+            // Check for images (case-insensitive)
+            console.log('=== Checking for images ===');
             
-            core.setOutput('has_face', hasFace.toString());
-            core.setOutput('has_body', hasBody.toString());
-            core.setOutput('has_preview', hasPreview.toString());
+            const checkImage = (name) => {
+              const variations = [
+                `${name}.png`, `${name}.PNG`,
+                `${name}.jpg`, `${name}.JPG`,
+                `${name}.jpeg`, `${name}.JPEG`
+              ];
+              for (const file of variations) {
+                if (fs.existsSync(file)) {
+                  console.log(`✅ Found: ${file}`);
+                  return true;
+                }
+              }
+              console.log(`❌ Not found: ${name}.*`);
+              return false;
+            };
+            
+            const hasFace = checkImage('face');
+            const hasBody = checkImage('body');
+            const hasPreview = checkImage('preview');
+            
+            console.log(`\n=== Results ===`);
+            console.log(`Face: ${hasFace}, Body: ${hasBody}, Preview: ${hasPreview}`);
+            
+            core.setOutput('has_face', hasFace ? 'true' : 'false');
+            core.setOutput('has_body', hasBody ? 'true' : 'false');
+            core.setOutput('has_preview', hasPreview ? 'true' : 'false');
+
       
       - name: Generate preset ID with gap-filling and octal fix
         id: generate_id
