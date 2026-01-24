@@ -218,7 +218,6 @@ jobs:
             core.setOutput('has_face', hasFace ? 'true' : 'false');
             core.setOutput('has_body', hasBody ? 'true' : 'false');
             core.setOutput('has_preview', hasPreview ? 'true' : 'false');
-
       
       - name: Generate preset ID with gap-filling and octal fix
         id: generate_id
@@ -309,9 +308,9 @@ jobs:
           HAS_BODY="${{ steps.download_images.outputs.has_body }}"
           HAS_PREVIEW="${{ steps.download_images.outputs.has_preview }}"
           
-          # Face
+          # Face (case-insensitive)
           if [ "$HAS_FACE" = "true" ]; then
-            for ext in png jpg jpeg; do
+            for ext in png PNG jpg JPG jpeg JPEG; do
               if [ -f "face.$ext" ]; then
                 cp "face.$ext" "presets/${PRESET_ID}/face.png"
                 [ "$HAS_PREVIEW" != "true" ] && cp "face.$ext" "presets/${PRESET_ID}/preview.png"
@@ -320,9 +319,9 @@ jobs:
             done
           fi
           
-          # Body
+          # Body (case-insensitive)
           if [ "$HAS_BODY" = "true" ]; then
-            for ext in png jpg jpeg; do
+            for ext in png PNG jpg JPG jpeg JPEG; do
               if [ -f "body.$ext" ]; then
                 cp "body.$ext" "presets/${PRESET_ID}/body.png"
                 [ "$HAS_FACE" != "true" ] && [ "$HAS_PREVIEW" != "true" ] && cp "body.$ext" "presets/${PRESET_ID}/preview.png"
@@ -331,15 +330,21 @@ jobs:
             done
           fi
           
-          # Preview (overrides)
+          # Preview (case-insensitive, overrides face/body)
           if [ "$HAS_PREVIEW" = "true" ]; then
-            for ext in png jpg jpeg; do
-              [ -f "preview.$ext" ] && cp "preview.$ext" "presets/${PRESET_ID}/preview.png" && break
+            for ext in png PNG jpg JPG jpeg JPEG; do
+              if [ -f "preview.$ext" ]; then
+                cp "preview.$ext" "presets/${PRESET_ID}/preview.png"
+                break
+              fi
             done
           fi
           
-          # Cleanup
-          rm -f face.* body.* preview.* *.zip
+          # Cleanup (case-insensitive)
+          rm -f face.* Face.* FACE.*
+          rm -f body.* Body.* BODY.*
+          rm -f preview.* Preview.* PREVIEW.*
+          rm -f *.zip *.ZIP
       
       - name: Update index.json
         run: |
