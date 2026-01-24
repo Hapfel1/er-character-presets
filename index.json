@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-01-24T12:55:17Z",
+  "last_updated": "2026-01-24T13:10:00Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -14,7 +14,6 @@
       ],
       "data_url": "presets/preset_001.json",
       "screenshot_url": "presets/preset_001.png",
-      "downloads": 0,
       "created": "2026-01-23"
     },
     {
@@ -27,7 +26,9 @@
       ],
       "data_url": "presets/preset_002.json",
       "screenshot_url": "presets/preset_002.png",
-      "downloads": 0,
+      "face_url": "presets/preset_002_face.png",
+      "body_url": "presets/preset_002_body.png",
+      "preview_url": "presets/preset_002_preview.png",
       "created": "2026-01-24"
     },
     {
@@ -40,7 +41,9 @@
       ],
       "data_url": "presets/preset_003.json",
       "screenshot_url": "presets/preset_003.png",
-      "downloads": 0,
+      "face_url": "presets/preset_003_face.png",
+      "body_url": "presets/preset_003_body.png",
+      "preview_url": "presets/preset_003_preview.png",
       "created": "2026-01-24"
     },
     {
@@ -53,7 +56,9 @@
       ],
       "data_url": "presets/preset_004.json",
       "screenshot_url": "presets/preset_004.png",
-      "downloads": 0,
+      "face_url": "presets/preset_004_face.png",
+      "body_url": "presets/preset_004_body.png",
+      "preview_url": "presets/preset_004_preview.png",
       "created": "2026-01-24"
     }
   ]
