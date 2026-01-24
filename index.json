@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-01-24T13:10:00Z",
+  "last_updated": "2026-01-24T14:30:00Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -8,12 +8,11 @@
       "name": "Test Character",
       "author": "Hapfel",
       "description": "Test preset to demonstrate browser functionality",
-      "tags": [
-        "test",
-        "female"
-      ],
-      "data_url": "presets/preset_001.json",
-      "screenshot_url": "presets/preset_001.png",
+      "tags": ["test", "female"],
+      "data_url": "presets/preset_001/data.json",
+      "screenshot_url": "presets/preset_001/preview.png",
+      "face_url": "presets/preset_001/face.png",
+      "body_url": "presets/preset_001/body.png",
       "created": "2026-01-23"
     },
     {
@@ -21,44 +20,12 @@
       "name": "test",
       "author": "Hapfel",
       "description": "test",
-      "tags": [
-        "test"
-      ],
-      "data_url": "presets/preset_002.json",
-      "screenshot_url": "presets/preset_002.png",
-      "face_url": "presets/preset_002_face.png",
-      "body_url": "presets/preset_002_body.png",
-      "preview_url": "presets/preset_002_preview.png",
-      "created": "2026-01-24"
-    },
-    {
-      "id": "preset_003",
-      "name": "testfinal",
-      "author": "hapfel",
-      "description": "test",
-      "tags": [
-        "male"
-      ],
-      "data_url": "presets/preset_003.json",
-      "screenshot_url": "presets/preset_003.png",
-      "face_url": "presets/preset_003_face.png",
-      "body_url": "presets/preset_003_body.png",
-      "preview_url": "presets/preset_003_preview.png",
-      "created": "2026-01-24"
-    },
-    {
-      "id": "preset_004",
-      "name": "Test 4",
-      "author": "Hapfel",
-      "description": "test test",
-      "tags": [
-        "female"
-      ],
-      "data_url": "presets/preset_004.json",
-      "screenshot_url": "presets/preset_004.png",
-      "face_url": "presets/preset_004_face.png",
-      "body_url": "presets/preset_004_body.png",
-      "preview_url": "presets/preset_004_preview.png",
+      "tags": ["test"],
+      "data_url": "presets/preset_002/data.json",
+      "screenshot_url": "presets/preset_002/preview.png",
+      "face_url": "presets/preset_002/face.png",
+      "body_url": "presets/preset_002/body.png",
+      "preview_url": "presets/preset_002/preview.png",
       "created": "2026-01-24"
     }
   ]
