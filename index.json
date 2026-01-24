@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-01-24T13:10:00Z",
+  "last_updated": "2026-01-24T16:47:17Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -59,6 +59,21 @@
       "face_url": "presets/preset_004_face.png",
       "body_url": "presets/preset_004_body.png",
       "preview_url": "presets/preset_004_preview.png",
+      "created": "2026-01-24"
+    },
+    {
+      "id": "preset_005",
+      "name": "Final Test",
+      "author": "Hapfel",
+      "description": "test final",
+      "tags": [
+        "female",
+        "cosplay",
+        "original"
+      ],
+      "data_url": "presets/preset_005.json",
+      "screenshot_url": "presets/preset_005.png",
+      "downloads": 0,
       "created": "2026-01-24"
     }
   ]
