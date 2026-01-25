@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-01-24T22:08:08Z",
+  "last_updated": "2026-01-25T00:48:23Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -82,6 +82,22 @@
       "screenshot_url": "presets/preset_002/preview.png",
       "face_url": "presets/preset_002/face.png",
       "body_url": "presets/preset_002/body.png"
+    },
+    {
+      "id": "preset_003",
+      "name": "Millicent",
+      "author": "ghostlyswat12 (UseTheLfgCoopChannel)",
+      "tags": [
+        "female",
+        "cosplay",
+        "young"
+      ],
+      "description": "You all know her and you all love her (besides dex build users ik what you did to her >: ) here she is in the flesh on a joruney in another world to discover her true nature and also help out herself from this alternative universe will she help herself and find her ture nature out... well thats up to you",
+      "created": "2026-01-25",
+      "data_url": "presets/preset_003/data.json",
+      "screenshot_url": "presets/preset_003/preview.png",
+      "face_url": "presets/preset_003/face.png",
+      "body_url": "presets/preset_003/body.png"
     }
   ]
 }
