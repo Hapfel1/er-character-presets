@@ -194,6 +194,96 @@ jobs:
             core.setOutput('appearance', JSON.stringify(appearance));
             
             console.log(`Extracted: ${name} by ${author}`);
+
+      - name: Check for duplicate appearance JSON
+        id: check_duplicate
+        uses: actions/github-script@v7
+        env:
+          NEW_APPEARANCE: ${{ steps.parse.outputs.appearance }}
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const canonicalize = (value) => {
+              if (Array.isArray(value)) {
+                return value.map(canonicalize);
+              }
+              if (value && typeof value === 'object') {
+                return Object.keys(value)
+                  .sort()
+                  .reduce((acc, key) => {
+                    acc[key] = canonicalize(value[key]);
+                    return acc;
+                  }, {});
+              }
+              return value;
+            };
+
+            const newAppearance = JSON.parse(process.env.NEW_APPEARANCE || '{}');
+            const newSignature = JSON.stringify(canonicalize(newAppearance));
+            const matches = [];
+
+            const root = 'presets';
+            if (fs.existsSync(root)) {
+              const entries = fs.readdirSync(root, { withFileTypes: true });
+              for (const entry of entries) {
+                if (!entry.isDirectory() || !entry.name.startsWith('preset_')) continue;
+                const dataPath = path.join(root, entry.name, 'data.json');
+                if (!fs.existsSync(dataPath)) continue;
+
+                try {
+                  const existing = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+                  const existingSignature = JSON.stringify(canonicalize(existing.appearance));
+                  if (existingSignature === newSignature) {
+                    matches.push(existing.id || entry.name);
+                  }
+                } catch (err) {
+                  console.log(`Skipping ${dataPath}: ${err.message}`);
+                }
+              }
+            }
+
+            if (matches.length > 0) {
+              core.setOutput('duplicate', 'true');
+              core.setOutput('matches', matches.join(', '));
+              console.log(`Duplicate appearance matches existing presets: ${matches.join(', ')}`);
+            } else {
+              core.setOutput('duplicate', 'false');
+              console.log('No duplicate appearance found');
+            }
+
+      - name: Reject duplicate submission
+        if: steps.check_duplicate.outputs.duplicate == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const matches = '${{ steps.check_duplicate.outputs.matches }}';
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: `❌ Duplicate preset detected. The submitted appearance JSON matches existing preset(s): ${matches}.\n\nPlease submit a unique preset.`
+            });
+
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              labels: ['duplicate-preset']
+            });
+
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              state: 'closed',
+              state_reason: 'not_planned'
+            });
+
+      - name: Stop if duplicate
+        if: steps.check_duplicate.outputs.duplicate == 'true'
+        run: exit 1
       
       - name: Download images from ZIP
         id: download_images
