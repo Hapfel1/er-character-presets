@@ -198,8 +198,6 @@ jobs:
       - name: Check for duplicate appearance JSON
         id: check_duplicate
         uses: actions/github-script@v7
-        env:
-          NEW_APPEARANCE: ${{ steps.parse.outputs.appearance }}
         with:
           script: |
             const fs = require('fs');
@@ -220,8 +218,21 @@ jobs:
               return value;
             };
 
-            const newAppearance = JSON.parse(process.env.NEW_APPEARANCE || '{}');
+            // Re-extract the appearance JSON directly from the issue body
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+            const jsonMatch = body.match(/```json\s*([\s\S]+?)\s*```/);
+            
+            if (!jsonMatch) {
+              console.log('No JSON found in issue body');
+              core.setOutput('duplicate', 'false');
+              return;
+            }
+            
+            const newAppearance = JSON.parse(jsonMatch[1]);
             const newSignature = JSON.stringify(canonicalize(newAppearance));
+            console.log('New appearance signature length:', newSignature.length);
+            
             const matches = [];
 
             const root = 'presets';
