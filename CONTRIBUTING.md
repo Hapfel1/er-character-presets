@@ -34,7 +34,3 @@ Submissions are usually processed within a few days.
 **Clear screenshot** - Good lighting, clear view of face
 **Appropriate content** 
 **Original or credited** - If cosplaying, mention the character
-
-## Questions?
-
-Open a discussion in the [Discussions](../../discussions) tab!
