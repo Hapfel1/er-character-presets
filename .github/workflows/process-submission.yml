@@ -209,6 +209,7 @@ jobs:
               }
               if (value && typeof value === 'object') {
                 return Object.keys(value)
+                  .filter(key => !key.startsWith('_'))  // Exclude metadata fields
                   .sort()
                   .reduce((acc, key) => {
                     acc[key] = canonicalize(value[key]);
