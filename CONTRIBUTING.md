@@ -4,46 +4,21 @@ Thanks for contributing to the community preset database!
 
 ## How to Submit a Preset
 
-### 1. Create Your Character
-Create your character in Elden Ring's character creator.
+### 1. Create Your Preset
+Create your character in Elden Ring and save it as a preset
 
-### 2. Export Appearance
+### 2. Browser
 In ER Save Manager:
 1. Go to the **Appearance** tab
-2. Select your character slot
-3. Click **"Export to JSON"**
-4. Save the file (e.g., `my_character.json`)
-
-### 3. Take Screenshot
-Take an in-game screenshot showing your character:
-- Press **F12** in Steam
-- Character creator screen OR
-- Gameplay with good lighting
-- Clear view of face and body
-
-### 4. Submit via GitHub Issue
-1. Go to [Issues](../../issues)
-2. Click "New Issue"
-3. Select "Character Preset Submission"
-4. Fill in:
-   - **Character Name**: Display name for the preset
-   - **Description**: Details about the character
-   - **Tags**: comma-separated (cosplay, male, female, etc.)
-   - **Screenshot**: Drag and drop your screenshot
-   - **Appearance JSON**: Drag and drop your exported .json file
-5. Submit!
-
-### Example Submission
-
-**Character Name:** Malenia Cosplay
-
-**Description:** Accurate recreation of Malenia, Blade of Miquella, with red hair and golden prosthetic arm aesthetic.
-
-**Tags:** cosplay, female, redhead, malenia
-
-**Files:**
-- Screenshot: (attached)
-- JSON: (attached my_character.json)
+2. Click on "Browse Community Presets"
+3. Go to the Contribute Tab
+4. Make sure you are logged in with GitHub into your browser
+5. Select your character slot
+6. Fill in the other details
+7. Attach fitting images
+8. Click on Submit
+9. Drag and drop the zip that opened into the Issue body
+10. Click on Create
 
 ## Review Process
 
@@ -57,7 +32,6 @@ Submissions are usually processed within a few days.
 ## Quality Guidelines
 
 ✓ **Clear screenshot** - Good lighting, clear view of face
-✓ **Accurate JSON** - Exported directly from the tool
 ✓ **Appropriate content** - Family-friendly characters only
 ✓ **Original or credited** - If cosplaying, mention the character
 
