@@ -31,9 +31,9 @@ Submissions are usually processed within a few days.
 
 ## Quality Guidelines
 
-✓ **Clear screenshot** - Good lighting, clear view of face
-✓ **Appropriate content** - Family-friendly characters only
-✓ **Original or credited** - If cosplaying, mention the character
+**Clear screenshot** - Good lighting, clear view of face
+**Appropriate content** 
+**Original or credited** - If cosplaying, mention the character
 
 ## Questions?
 
