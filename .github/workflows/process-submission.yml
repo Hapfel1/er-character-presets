@@ -33,6 +33,15 @@ jobs:
             const body = issue.body || '';
             
             console.log('Validating issue format...');
+
+            // Allow dedicated report issues to bypass submission validation
+            const isReport = /\[Report\]/i.test(issue.title || '') || /\*\*Reported Preset:\*\*/.test(body);
+            if (isReport) {
+              console.log('INFO: Report issue detected; skipping preset submission flow');
+              core.setOutput('valid', 'report');
+              core.setOutput('error', '');
+              return;
+            }
             
             // Check for required fields in proper format (from submission form)
             const requiredFields = [
@@ -82,8 +91,32 @@ jobs:
       - name: Stop if invalid
         if: steps.validate.outputs.valid == 'false'
         run: exit 1
+
+      - name: Acknowledge report submission
+        if: steps.validate.outputs.valid == 'report'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: '✅ Report received. Thank you for the submission.'
+            });
+
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              labels: ['preset-report']
+            });
+
+      - name: Stop if report
+        if: steps.validate.outputs.valid == 'report'
+        run: exit 0
       
       - name: Check user blocklist/trustlist
+        if: steps.validate.outputs.valid == 'true'
         id: check_user
         uses: actions/github-script@v7
         with:
@@ -114,7 +147,7 @@ jobs:
             }
       
       - name: Handle blocked user
-        if: steps.check_user.outputs.status == 'blocked'
+        if: steps.validate.outputs.valid == 'true' && steps.check_user.outputs.status == 'blocked'
         uses: actions/github-script@v7
         with:
           script: |
@@ -141,20 +174,23 @@ jobs:
             });
       
       - name: Stop if user is blocked
-        if: steps.check_user.outputs.status == 'blocked'
+        if: steps.validate.outputs.valid == 'true' && steps.check_user.outputs.status == 'blocked'
         run: exit 1
       
       - name: Setup Python
+        if: steps.validate.outputs.valid == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       
       - name: Install dependencies
+        if: steps.validate.outputs.valid == 'true'
         run: |
           python -m pip install --upgrade pip
           pip install pillow
       
       - name: Parse issue and extract data
+        if: steps.validate.outputs.valid == 'true'
         id: parse
         uses: actions/github-script@v7
         with:
@@ -196,6 +232,7 @@ jobs:
             console.log(`Extracted: ${name} by ${author}`);
 
       - name: Check for duplicate appearance JSON
+        if: steps.validate.outputs.valid == 'true'
         id: check_duplicate
         uses: actions/github-script@v7
         with:
@@ -266,7 +303,7 @@ jobs:
             }
 
       - name: Reject duplicate submission
-        if: steps.check_duplicate.outputs.duplicate == 'true'
+        if: steps.validate.outputs.valid == 'true' && steps.check_duplicate.outputs.duplicate == 'true'
         uses: actions/github-script@v7
         with:
           script: |
@@ -294,10 +331,11 @@ jobs:
             });
 
       - name: Stop if duplicate
-        if: steps.check_duplicate.outputs.duplicate == 'true'
+        if: steps.validate.outputs.valid == 'true' && steps.check_duplicate.outputs.duplicate == 'true'
         run: exit 1
       
       - name: Download images from ZIP
+        if: steps.validate.outputs.valid == 'true'
         id: download_images
         uses: actions/github-script@v7
         with:
@@ -442,6 +480,7 @@ jobs:
             core.setOutput('has_preview', hasPreview ? 'true' : 'false');
       
       - name: Generate preset ID with gap-filling and octal fix
+        if: steps.validate.outputs.valid == 'true'
         id: generate_id
         run: |
           ISSUE_NUM="${{ github.event.issue.number }}"
@@ -516,6 +555,7 @@ jobs:
           echo "Generated ID: $PRESET_ID"
       
       - name: Create preset folder and data
+        if: steps.validate.outputs.valid == 'true'
         run: |
           PRESET_ID="${{ steps.generate_id.outputs.preset_id }}"
           PRESET_NAME="${{ steps.parse.outputs.preset_name }}"
@@ -548,6 +588,7 @@ jobs:
               created: $created
             }' > "presets/${PRESET_ID}/data.json"
       - name: Copy images
+        if: steps.validate.outputs.valid == 'true'
         run: |
           PRESET_ID="${{ steps.generate_id.outputs.preset_id }}"
           HAS_FACE="${{ steps.download_images.outputs.has_face }}"
@@ -593,6 +634,7 @@ jobs:
           rm -f *.zip *.ZIP
       
       - name: Update index.json
+        if: steps.validate.outputs.valid == 'true'
         run: |
           PRESET_ID="${{ steps.generate_id.outputs.preset_id }}"
           PRESET_NAME="${{ steps.parse.outputs.preset_name }}"
@@ -628,6 +670,7 @@ jobs:
              index.json > index.tmp && mv index.tmp index.json
       
       - name: Create PR
+        if: steps.validate.outputs.valid == 'true'
         id: create_pr
         uses: peter-evans/create-pull-request@v6
         with:
@@ -645,7 +688,7 @@ jobs:
           labels: ${{ steps.check_user.outputs.status == 'trusted' && 'preset-submission,trusted-user' || 'preset-submission' }}
       
       - name: Auto-approve for trusted users
-        if: steps.check_user.outputs.auto_approve == 'true' && steps.create_pr.outputs.pull-request-number != ''
+        if: steps.validate.outputs.valid == 'true' && steps.check_user.outputs.auto_approve == 'true' && steps.create_pr.outputs.pull-request-number != ''
         uses: actions/github-script@v7
         with:
           script: |
@@ -660,7 +703,7 @@ jobs:
             console.log('Pull request auto-approved');
       
       - name: Comment on issue
-        if: steps.create_pr.outputs.pull-request-number
+        if: steps.validate.outputs.valid == 'true' && steps.create_pr.outputs.pull-request-number
         uses: actions/github-script@v7
         with:
           script: |
