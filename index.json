@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-01-29T08:34:09Z",
+  "last_updated": "2026-01-29T08:37:54Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -84,6 +84,23 @@
       "screenshot_url": "presets/preset_004/preview.png",
       "face_url": "presets/preset_004/face.png",
       "body_url": "presets/preset_004/body.png"
+    },
+    {
+      "id": "preset_005",
+      "name": "Chad",
+      "author": "FunnyBones777",
+      "tags": [
+        "male",
+        "realistic",
+        "meme",
+        "young"
+      ],
+      "description": "From the Gigachad meme",
+      "created": "2026-01-29",
+      "data_url": "presets/preset_005/data.json",
+      "screenshot_url": "presets/preset_005/preview.png",
+      "face_url": "presets/preset_005/face.png",
+      "body_url": "presets/preset_005/body.png"
     }
   ]
 }
