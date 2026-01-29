@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-01-25T00:48:23Z",
+  "last_updated": "2026-01-29T08:34:09Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -67,6 +67,23 @@
       "screenshot_url": "presets/preset_003/preview.png",
       "face_url": "presets/preset_003/face.png",
       "body_url": "presets/preset_003/body.png"
+    },
+    {
+      "id": "preset_004",
+      "name": "Jaiden Animations",
+      "author": "FunnyBones777",
+      "tags": [
+        "female",
+        "realistic",
+        "young",
+        "youtuber"
+      ],
+      "description": "https://www.youtube.com/@jaidenanimations",
+      "created": "2026-01-29",
+      "data_url": "presets/preset_004/data.json",
+      "screenshot_url": "presets/preset_004/preview.png",
+      "face_url": "presets/preset_004/face.png",
+      "body_url": "presets/preset_004/body.png"
     }
   ]
 }
