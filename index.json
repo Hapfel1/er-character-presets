@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-01-29T08:37:54Z",
+  "last_updated": "2026-01-29T23:05:00Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -101,6 +101,22 @@
       "screenshot_url": "presets/preset_005/preview.png",
       "face_url": "presets/preset_005/face.png",
       "body_url": "presets/preset_005/body.png"
+    },
+    {
+      "id": "preset_006",
+      "name": "Hapfel",
+      "author": "Hapfel",
+      "tags": [
+        "female",
+        "original",
+        "young"
+      ],
+      "description": "Character Preset from the Creator of this Tool",
+      "created": "2026-01-29",
+      "data_url": "presets/preset_006/data.json",
+      "screenshot_url": "presets/preset_006/preview.png",
+      "face_url": "presets/preset_006/face.png",
+      "body_url": "presets/preset_006/body.png"
     }
   ]
 }
