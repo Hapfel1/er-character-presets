@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-01-29T23:05:00Z",
+  "last_updated": "2026-03-11T18:25:04Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -117,6 +117,22 @@
       "screenshot_url": "presets/preset_006/preview.png",
       "face_url": "presets/preset_006/face.png",
       "body_url": "presets/preset_006/body.png"
+    },
+    {
+      "id": "preset_007",
+      "name": "AuJin",
+      "author": "AuJin",
+      "tags": [
+        "female",
+        "original",
+        "young"
+      ],
+      "description": "Female preset",
+      "created": "2026-03-11",
+      "data_url": "presets/preset_007/data.json",
+      "screenshot_url": "presets/preset_007/preview.png",
+      "face_url": "presets/preset_007/face.png",
+      "body_url": "presets/preset_007/body.png"
     }
   ]
 }
