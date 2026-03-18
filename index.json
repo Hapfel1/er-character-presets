@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-03-11T18:25:04Z",
+  "last_updated": "2026-03-18T20:59:48Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -133,6 +133,25 @@
       "screenshot_url": "presets/preset_007/preview.png",
       "face_url": "presets/preset_007/face.png",
       "body_url": "presets/preset_007/body.png"
+    },
+    {
+      "id": "preset_008",
+      "name": "Mel",
+      "author": "Mel",
+      "tags": [
+        "female",
+        "original",
+        "fantasy",
+        "realistic",
+        "meme",
+        "young"
+      ],
+      "description": "I have no mouth and i must scream.",
+      "created": "2026-03-18",
+      "data_url": "presets/preset_008/data.json",
+      "screenshot_url": "presets/preset_008/preview.png",
+      "face_url": "presets/preset_008/face.png",
+      "body_url": "presets/preset_008/body.png"
     }
   ]
 }
