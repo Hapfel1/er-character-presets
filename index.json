@@ -155,6 +155,37 @@
     },
     {
       "id": "preset_009",
+      "name": "Joot Lee",
+      "author": "Slicin",
+      "tags": [
+        "male",
+        "meme"
+      ],
+      "description": "The ultimate martial arts master",
+      "created": "2026-03-31",
+      "data_url": "presets/preset_009/data.json",
+      "screenshot_url": "presets/preset_009/preview.png",
+      "face_url": "presets/preset_009/face.png",
+      "body_url": "presets/preset_009/body.png"
+    },
+    {
+      "id": "preset_010",
+      "name": "Sanic",
+      "author": "Slicin",
+      "tags": [
+        "male",
+        "cosplay",
+        "meme"
+      ],
+      "description": "Gotta go fast",
+      "created": "2026-03-31",
+      "data_url": "presets/preset_010/data.json",
+      "screenshot_url": "presets/preset_010/preview.png",
+      "face_url": "presets/preset_010/face.png",
+      "body_url": "presets/preset_010/body.png"
+    },
+    {
+      "id": "preset_011",
       "name": "The Joker",
       "author": "Slicin",
       "tags": [
@@ -163,10 +194,10 @@
       ],
       "description": "The Joker, Heath Ledger inspired\nCredit: https://www.youtube.com/watch?v=fVbsIOwChIM",
       "created": "2026-03-31",
-      "data_url": "presets/preset_009/data.json",
-      "screenshot_url": "presets/preset_009/preview.png",
-      "face_url": "presets/preset_009/face.png",
-      "body_url": "presets/preset_009/body.png"
+      "data_url": "presets/preset_011/data.json",
+      "screenshot_url": "presets/preset_011/preview.png",
+      "face_url": "presets/preset_011/face.png",
+      "body_url": "presets/preset_011/body.png"
     }
   ]
 }
