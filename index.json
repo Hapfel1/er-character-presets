@@ -183,6 +183,21 @@
       "screenshot_url": "presets/preset_010/preview.png",
       "face_url": "presets/preset_010/face.png",
       "body_url": "presets/preset_010/body.png"
+    },
+    {
+      "id": "preset_011",
+      "name": "The Joker",
+      "author": "Slicin",
+      "tags": [
+        "male",
+        "cosplay"
+      ],
+      "description": "The Joker, Heath Ledger inspired\nCredit: https://www.youtube.com/watch?v=fVbsIOwChIM",
+      "created": "2026-03-31",
+      "data_url": "presets/preset_011/data.json",
+      "screenshot_url": "presets/preset_011/preview.png",
+      "face_url": "presets/preset_011/face.png",
+      "body_url": "presets/preset_011/body.png"
     }
   ]
 }
