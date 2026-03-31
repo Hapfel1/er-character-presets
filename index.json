@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-03-31T17:50:22Z",
+  "last_updated": "2026-03-31T17:52:00Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -227,6 +227,21 @@
       "screenshot_url": "presets/preset_013/preview.png",
       "face_url": "presets/preset_013/face.png",
       "body_url": "presets/preset_013/body.png"
+    },
+    {
+      "id": "preset_014",
+      "name": "Goated Gamergod",
+      "author": "Slicin",
+      "tags": [
+        "male",
+        "meme"
+      ],
+      "description": "Inspired by the protagonist from Cruelty Squad",
+      "created": "2026-03-31",
+      "data_url": "presets/preset_014/data.json",
+      "screenshot_url": "presets/preset_014/preview.png",
+      "face_url": "presets/preset_014/face.png",
+      "body_url": "presets/preset_014/body.png"
     }
   ]
 }
