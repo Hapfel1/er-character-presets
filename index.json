@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-03-18T20:59:48Z",
+  "last_updated": "2026-03-31T14:28:35Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -152,6 +152,21 @@
       "screenshot_url": "presets/preset_008/preview.png",
       "face_url": "presets/preset_008/face.png",
       "body_url": "presets/preset_008/body.png"
+    },
+    {
+      "id": "preset_009",
+      "name": "Joot Lee",
+      "author": "Slicin",
+      "tags": [
+        "male",
+        "meme"
+      ],
+      "description": "The ultimate martial arts master",
+      "created": "2026-03-31",
+      "data_url": "presets/preset_009/data.json",
+      "screenshot_url": "presets/preset_009/preview.png",
+      "face_url": "presets/preset_009/face.png",
+      "body_url": "presets/preset_009/body.png"
     }
   ]
 }
