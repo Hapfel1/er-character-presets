@@ -676,7 +676,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "feat: add preset ${{ steps.parse.outputs.preset_name }}"
-          branch: preset-${{ steps.generate_id.outputs.preset_id }}
+          branch: submission/issue-${{ github.event.issue.number }}
           title: "[Preset] ${{ steps.parse.outputs.preset_name }}"
           body: |
             **ID:** ${{ steps.generate_id.outputs.preset_id }}
