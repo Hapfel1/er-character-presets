@@ -479,11 +479,28 @@ jobs:
             core.setOutput('has_body', hasBody ? 'true' : 'false');
             core.setOutput('has_preview', hasPreview ? 'true' : 'false');
       
+      - name: Count open submission PRs
+        if: steps.validate.outputs.valid == 'true'
+        id: open_prs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pulls = await github.paginate(github.rest.pulls.list, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100,
+            });
+            const count = pulls.filter(p => p.head.ref.startsWith('submission/issue-')).length;
+            console.log(`Open submission PRs: ${count}`);
+            core.setOutput('count', String(count));
+
       - name: Generate preset ID with gap-filling and octal fix
         if: steps.validate.outputs.valid == 'true'
         id: generate_id
         run: |
           ISSUE_NUM="${{ github.event.issue.number }}"
+          OPEN_PR_COUNT="${{ steps.open_prs.outputs.count }}"
           
           # Get all existing IDs from index.json and filesystem
           USED_IDS=()
@@ -522,9 +539,11 @@ jobs:
           
           echo "Used IDs: ${USED_IDS[*]}"
           
-          # Find next available ID (fills gaps)
+          # Find next available ID, then skip forward by the number of open PRs
+          # so concurrent submissions don't claim the same ID
           PRESET_ID=""
-          for i in {0..999}; do
+          SKIPS_REMAINING="$OPEN_PR_COUNT"
+          for i in $(seq 0 999); do
             FOUND=false
             for used in "${USED_IDS[@]}"; do
               if [ "$used" = "$i" ]; then
@@ -534,8 +553,12 @@ jobs:
             done
             
             if [ "$FOUND" = false ]; then
-              PRESET_ID=$(printf "preset_%03d" $i)
-              break
+              if [ "$SKIPS_REMAINING" -gt 0 ]; then
+                SKIPS_REMAINING=$((SKIPS_REMAINING - 1))
+              else
+                PRESET_ID=$(printf "preset_%03d" $i)
+                break
+              fi
             fi
           done
           
