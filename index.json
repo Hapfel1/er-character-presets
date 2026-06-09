@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-04-19T20:07:50Z",
+  "last_updated": "2026-06-09T00:00:00Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -256,6 +256,1774 @@
       "screenshot_url": "presets/preset_015/preview.png",
       "face_url": "presets/preset_015/face.png",
       "body_url": "presets/preset_015/body.png"
+    },
+    {
+      "id": "preset_016",
+      "name": "Sorceress Sellen",
+      "author": "Hapfel",
+      "description": "NPC preset for Sorceress Sellen",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_016/data.json",
+      "face_url": "presets/preset_016/face.png",
+      "body_url": "presets/preset_016/body.png",
+      "preview_url": "presets/preset_016/preview.png",
+      "screenshot_url": "presets/preset_016/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_017",
+      "name": "Sorceress Sellen 2",
+      "author": "Hapfel",
+      "description": "NPC preset for Sorceress Sellen 2",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_017/data.json",
+      "face_url": "presets/preset_017/face.png",
+      "body_url": "presets/preset_017/body.png",
+      "preview_url": "presets/preset_017/preview.png",
+      "screenshot_url": "presets/preset_017/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_018",
+      "name": "Roderika, Spirit Tuner",
+      "author": "Hapfel",
+      "description": "NPC preset for Roderika, Spirit Tuner",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_018/data.json",
+      "face_url": "presets/preset_018/face.png",
+      "body_url": "presets/preset_018/body.png",
+      "preview_url": "presets/preset_018/preview.png",
+      "screenshot_url": "presets/preset_018/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_019",
+      "name": "Sorcerer Thops",
+      "author": "Hapfel",
+      "description": "NPC preset for Sorcerer Thops",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_019/data.json",
+      "face_url": "presets/preset_019/face.png",
+      "body_url": "presets/preset_019/body.png",
+      "preview_url": "presets/preset_019/preview.png",
+      "screenshot_url": "presets/preset_019/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_020",
+      "name": "Sorcerer Rogier",
+      "author": "Hapfel",
+      "description": "NPC preset for Sorcerer Rogier",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_020/data.json",
+      "face_url": "presets/preset_020/face.png",
+      "body_url": "presets/preset_020/body.png",
+      "preview_url": "presets/preset_020/preview.png",
+      "screenshot_url": "presets/preset_020/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_021",
+      "name": "Boc the Seamster",
+      "author": "Hapfel",
+      "description": "NPC preset for Boc the Seamster",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_021/data.json",
+      "face_url": "presets/preset_021/face.png",
+      "body_url": "presets/preset_021/body.png",
+      "preview_url": "presets/preset_021/preview.png",
+      "screenshot_url": "presets/preset_021/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_022",
+      "name": "D, Hunter of the Dead",
+      "author": "Hapfel",
+      "description": "NPC preset for D, Hunter of the Dead",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_022/data.json",
+      "face_url": "presets/preset_022/face.png",
+      "body_url": "presets/preset_022/body.png",
+      "preview_url": "presets/preset_022/preview.png",
+      "screenshot_url": "presets/preset_022/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_023",
+      "name": "D, Beholder of Death",
+      "author": "Hapfel",
+      "description": "NPC preset for D, Beholder of Death",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_023/data.json",
+      "face_url": "presets/preset_023/face.png",
+      "body_url": "presets/preset_023/body.png",
+      "preview_url": "presets/preset_023/preview.png",
+      "screenshot_url": "presets/preset_023/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_024",
+      "name": "Brother Corhyn",
+      "author": "Hapfel",
+      "description": "NPC preset for Brother Corhyn",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_024/data.json",
+      "face_url": "presets/preset_024/face.png",
+      "body_url": "presets/preset_024/body.png",
+      "preview_url": "presets/preset_024/preview.png",
+      "screenshot_url": "presets/preset_024/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_025",
+      "name": "Knight Bernahl",
+      "author": "Hapfel",
+      "description": "NPC preset for Knight Bernahl",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_025/data.json",
+      "face_url": "presets/preset_025/face.png",
+      "body_url": "presets/preset_025/body.png",
+      "preview_url": "presets/preset_025/preview.png",
+      "screenshot_url": "presets/preset_025/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_026",
+      "name": "Yura, Hunter of Bloody Fingers",
+      "author": "Hapfel",
+      "description": "NPC preset for Yura, Hunter of Bloody Fingers",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_026/data.json",
+      "face_url": "presets/preset_026/face.png",
+      "body_url": "presets/preset_026/body.png",
+      "preview_url": "presets/preset_026/preview.png",
+      "screenshot_url": "presets/preset_026/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_027",
+      "name": "White Mask Varr\u00e9",
+      "author": "Hapfel",
+      "description": "NPC preset for White Mask Varr\u00e9",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_027/data.json",
+      "face_url": "presets/preset_027/face.png",
+      "body_url": "presets/preset_027/body.png",
+      "preview_url": "presets/preset_027/preview.png",
+      "screenshot_url": "presets/preset_027/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_028",
+      "name": "Fia, Deathbed Companion",
+      "author": "Hapfel",
+      "description": "NPC preset for Fia, Deathbed Companion",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_028/data.json",
+      "face_url": "presets/preset_028/face.png",
+      "body_url": "presets/preset_028/body.png",
+      "preview_url": "presets/preset_028/preview.png",
+      "screenshot_url": "presets/preset_028/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_029",
+      "name": "Edgar the Revenger",
+      "author": "Hapfel",
+      "description": "NPC preset for Edgar the Revenger",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_029/data.json",
+      "face_url": "presets/preset_029/face.png",
+      "body_url": "presets/preset_029/body.png",
+      "preview_url": "presets/preset_029/preview.png",
+      "screenshot_url": "presets/preset_029/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_030",
+      "name": "Irina of Morne",
+      "author": "Hapfel",
+      "description": "NPC preset for Irina of Morne",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_030/data.json",
+      "face_url": "presets/preset_030/face.png",
+      "body_url": "presets/preset_030/body.png",
+      "preview_url": "presets/preset_030/preview.png",
+      "screenshot_url": "presets/preset_030/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_031",
+      "name": "Kenneth Haight, Limgrave Heir",
+      "author": "Hapfel",
+      "description": "NPC preset for Kenneth Haight, Limgrave Heir",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_031/data.json",
+      "face_url": "presets/preset_031/face.png",
+      "body_url": "presets/preset_031/body.png",
+      "preview_url": "presets/preset_031/preview.png",
+      "screenshot_url": "presets/preset_031/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_032",
+      "name": "Knight Diallos",
+      "author": "Hapfel",
+      "description": "NPC preset for Knight Diallos",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_032/data.json",
+      "face_url": "presets/preset_032/face.png",
+      "body_url": "presets/preset_032/body.png",
+      "preview_url": "presets/preset_032/preview.png",
+      "screenshot_url": "presets/preset_032/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_033",
+      "name": "Patches",
+      "author": "Hapfel",
+      "description": "NPC preset for Patches",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_033/data.json",
+      "face_url": "presets/preset_033/face.png",
+      "body_url": "presets/preset_033/body.png",
+      "preview_url": "presets/preset_033/preview.png",
+      "screenshot_url": "presets/preset_033/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_034",
+      "name": "Sir Gideon Ofnir, the All-Knowing",
+      "author": "Hapfel",
+      "description": "NPC preset for Sir Gideon Ofnir, the All-Knowing",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_034/data.json",
+      "face_url": "presets/preset_034/face.png",
+      "body_url": "presets/preset_034/body.png",
+      "preview_url": "presets/preset_034/preview.png",
+      "screenshot_url": "presets/preset_034/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_035",
+      "name": "Nepheli Loux, Warrior",
+      "author": "Hapfel",
+      "description": "NPC preset for Nepheli Loux, Warrior",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_035/data.json",
+      "face_url": "presets/preset_035/face.png",
+      "body_url": "presets/preset_035/body.png",
+      "preview_url": "presets/preset_035/preview.png",
+      "screenshot_url": "presets/preset_035/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_036",
+      "name": "Tanith's Knight",
+      "author": "Hapfel",
+      "description": "NPC preset for Tanith's Knight",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_036/data.json",
+      "face_url": "presets/preset_036/face.png",
+      "body_url": "presets/preset_036/body.png",
+      "preview_url": "presets/preset_036/preview.png",
+      "screenshot_url": "presets/preset_036/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_037",
+      "name": "Rya the Scout",
+      "author": "Hapfel",
+      "description": "NPC preset for Rya the Scout",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_037/data.json",
+      "face_url": "presets/preset_037/face.png",
+      "body_url": "presets/preset_037/body.png",
+      "preview_url": "presets/preset_037/preview.png",
+      "screenshot_url": "presets/preset_037/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_038",
+      "name": "Dung Eater",
+      "author": "Hapfel",
+      "description": "NPC preset for Dung Eater",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_038/data.json",
+      "face_url": "presets/preset_038/face.png",
+      "body_url": "presets/preset_038/body.png",
+      "preview_url": "presets/preset_038/preview.png",
+      "screenshot_url": "presets/preset_038/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_039",
+      "name": "Preceptor Seluvis",
+      "author": "Hapfel",
+      "description": "NPC preset for Preceptor Seluvis",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_039/data.json",
+      "face_url": "presets/preset_039/face.png",
+      "body_url": "presets/preset_039/body.png",
+      "preview_url": "presets/preset_039/preview.png",
+      "screenshot_url": "presets/preset_039/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_040",
+      "name": "Sage Gowry",
+      "author": "Hapfel",
+      "description": "NPC preset for Sage Gowry",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_040/data.json",
+      "face_url": "presets/preset_040/face.png",
+      "body_url": "presets/preset_040/body.png",
+      "preview_url": "presets/preset_040/preview.png",
+      "screenshot_url": "presets/preset_040/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_041",
+      "name": "Millicent",
+      "author": "Hapfel",
+      "description": "NPC preset for Millicent",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_041/data.json",
+      "face_url": "presets/preset_041/face.png",
+      "body_url": "presets/preset_041/body.png",
+      "preview_url": "presets/preset_041/preview.png",
+      "screenshot_url": "presets/preset_041/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_042",
+      "name": "Millicent 2",
+      "author": "Hapfel",
+      "description": "NPC preset for Millicent 2",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_042/data.json",
+      "face_url": "presets/preset_042/face.png",
+      "body_url": "presets/preset_042/body.png",
+      "preview_url": "presets/preset_042/preview.png",
+      "screenshot_url": "presets/preset_042/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_043",
+      "name": "Ensha of the Royal Remains",
+      "author": "Hapfel",
+      "description": "NPC preset for Ensha of the Royal Remains",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_043/data.json",
+      "face_url": "presets/preset_043/face.png",
+      "body_url": "presets/preset_043/body.png",
+      "preview_url": "presets/preset_043/preview.png",
+      "screenshot_url": "presets/preset_043/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_044",
+      "name": "Witch-Hunter Jerren",
+      "author": "Hapfel",
+      "description": "NPC preset for Witch-Hunter Jerren",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_044/data.json",
+      "face_url": "presets/preset_044/face.png",
+      "body_url": "presets/preset_044/body.png",
+      "preview_url": "presets/preset_044/preview.png",
+      "screenshot_url": "presets/preset_044/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_045",
+      "name": "Blackguard",
+      "author": "Hapfel",
+      "description": "NPC preset for Blackguard",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_045/data.json",
+      "face_url": "presets/preset_045/face.png",
+      "body_url": "presets/preset_045/body.png",
+      "preview_url": "presets/preset_045/preview.png",
+      "screenshot_url": "presets/preset_045/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_046",
+      "name": "Finger Maiden Therolina",
+      "author": "Hapfel",
+      "description": "NPC preset for Finger Maiden Therolina",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_046/data.json",
+      "face_url": "presets/preset_046/face.png",
+      "body_url": "presets/preset_046/body.png",
+      "preview_url": "presets/preset_046/preview.png",
+      "screenshot_url": "presets/preset_046/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_047",
+      "name": "Stormhill Colosseum Silent Spirit",
+      "author": "Hapfel",
+      "description": "NPC preset for Stormhill Colosseum Silent Spirit",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_047/data.json",
+      "face_url": "presets/preset_047/face.png",
+      "body_url": "presets/preset_047/body.png",
+      "preview_url": "presets/preset_047/preview.png",
+      "screenshot_url": "presets/preset_047/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_048",
+      "name": "Caria Manor Silent Spirit",
+      "author": "Hapfel",
+      "description": "NPC preset for Caria Manor Silent Spirit",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_048/data.json",
+      "face_url": "presets/preset_048/face.png",
+      "body_url": "presets/preset_048/body.png",
+      "preview_url": "presets/preset_048/preview.png",
+      "screenshot_url": "presets/preset_048/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_049",
+      "name": "Dragonbarrow Silent Spirit",
+      "author": "Hapfel",
+      "description": "NPC preset for Dragonbarrow Silent Spirit",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_049/data.json",
+      "face_url": "presets/preset_049/face.png",
+      "body_url": "presets/preset_049/body.png",
+      "preview_url": "presets/preset_049/preview.png",
+      "screenshot_url": "presets/preset_049/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_050",
+      "name": "Rykard-Hating Ghost",
+      "author": "Hapfel",
+      "description": "NPC preset for Rykard-Hating Ghost",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_050/data.json",
+      "face_url": "presets/preset_050/face.png",
+      "body_url": "presets/preset_050/body.png",
+      "preview_url": "presets/preset_050/preview.png",
+      "screenshot_url": "presets/preset_050/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_051",
+      "name": "Dolores the Sleeping Arrow",
+      "author": "Hapfel",
+      "description": "NPC preset for Dolores the Sleeping Arrow",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_051/data.json",
+      "face_url": "presets/preset_051/face.png",
+      "body_url": "presets/preset_051/body.png",
+      "preview_url": "presets/preset_051/preview.png",
+      "screenshot_url": "presets/preset_051/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_052",
+      "name": "Jarwight",
+      "author": "Hapfel",
+      "description": "NPC preset for Jarwight",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_052/data.json",
+      "face_url": "presets/preset_052/face.png",
+      "body_url": "presets/preset_052/body.png",
+      "preview_url": "presets/preset_052/preview.png",
+      "screenshot_url": "presets/preset_052/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_053",
+      "name": "Mad Tongue Alberich",
+      "author": "Hapfel",
+      "description": "NPC preset for Mad Tongue Alberich",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_053/data.json",
+      "face_url": "presets/preset_053/face.png",
+      "body_url": "presets/preset_053/body.png",
+      "preview_url": "presets/preset_053/preview.png",
+      "screenshot_url": "presets/preset_053/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_054",
+      "name": "Recusant Henricus",
+      "author": "Hapfel",
+      "description": "NPC preset for Recusant Henricus",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_054/data.json",
+      "face_url": "presets/preset_054/face.png",
+      "body_url": "presets/preset_054/body.png",
+      "preview_url": "presets/preset_054/preview.png",
+      "screenshot_url": "presets/preset_054/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_055",
+      "name": "Old Knight Istvan",
+      "author": "Hapfel",
+      "description": "NPC preset for Old Knight Istvan",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_055/data.json",
+      "face_url": "presets/preset_055/face.png",
+      "body_url": "presets/preset_055/body.png",
+      "preview_url": "presets/preset_055/preview.png",
+      "screenshot_url": "presets/preset_055/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_056",
+      "name": "Anastasia, Tarnished-Eater",
+      "author": "Hapfel",
+      "description": "NPC preset for Anastasia, Tarnished-Eater",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_056/data.json",
+      "face_url": "presets/preset_056/face.png",
+      "body_url": "presets/preset_056/body.png",
+      "preview_url": "presets/preset_056/preview.png",
+      "screenshot_url": "presets/preset_056/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_057",
+      "name": "Adan, Thief of Fire",
+      "author": "Hapfel",
+      "description": "NPC preset for Adan, Thief of Fire",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_057/data.json",
+      "face_url": "presets/preset_057/face.png",
+      "body_url": "presets/preset_057/body.png",
+      "preview_url": "presets/preset_057/preview.png",
+      "screenshot_url": "presets/preset_057/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_058",
+      "name": "Bloody Finger Ravenmount Assassin",
+      "author": "Hapfel",
+      "description": "NPC preset for Bloody Finger Ravenmount Assassin",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_058/data.json",
+      "face_url": "presets/preset_058/face.png",
+      "body_url": "presets/preset_058/body.png",
+      "preview_url": "presets/preset_058/preview.png",
+      "screenshot_url": "presets/preset_058/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_059",
+      "name": "Moongrum, Carian Knight",
+      "author": "Hapfel",
+      "description": "NPC preset for Moongrum, Carian Knight",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_059/data.json",
+      "face_url": "presets/preset_059/face.png",
+      "body_url": "presets/preset_059/body.png",
+      "preview_url": "presets/preset_059/preview.png",
+      "screenshot_url": "presets/preset_059/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_060",
+      "name": "Preceptor Miriam",
+      "author": "Hapfel",
+      "description": "NPC preset for Preceptor Miriam",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_060/data.json",
+      "face_url": "presets/preset_060/face.png",
+      "body_url": "presets/preset_060/body.png",
+      "preview_url": "presets/preset_060/preview.png",
+      "screenshot_url": "presets/preset_060/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_061",
+      "name": "Festering Fingerprint Vyke",
+      "author": "Hapfel",
+      "description": "NPC preset for Festering Fingerprint Vyke",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_061/data.json",
+      "face_url": "presets/preset_061/face.png",
+      "body_url": "presets/preset_061/body.png",
+      "preview_url": "presets/preset_061/preview.png",
+      "screenshot_url": "presets/preset_061/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_062",
+      "name": "Vyke's Finger Maiden",
+      "author": "Hapfel",
+      "description": "NPC preset for Vyke's Finger Maiden",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_062/data.json",
+      "face_url": "presets/preset_062/face.png",
+      "body_url": "presets/preset_062/body.png",
+      "preview_url": "presets/preset_062/preview.png",
+      "screenshot_url": "presets/preset_062/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_063",
+      "name": "Finger Maiden",
+      "author": "Hapfel",
+      "description": "NPC preset for Finger Maiden",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_063/data.json",
+      "face_url": "presets/preset_063/face.png",
+      "body_url": "presets/preset_063/body.png",
+      "preview_url": "presets/preset_063/preview.png",
+      "screenshot_url": "presets/preset_063/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_064",
+      "name": "Knight of the Great Jar 1",
+      "author": "Hapfel",
+      "description": "NPC preset for Knight of the Great Jar 1",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_064/data.json",
+      "face_url": "presets/preset_064/face.png",
+      "body_url": "presets/preset_064/body.png",
+      "preview_url": "presets/preset_064/preview.png",
+      "screenshot_url": "presets/preset_064/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_065",
+      "name": "Knight of the Great Jar 2",
+      "author": "Hapfel",
+      "description": "NPC preset for Knight of the Great Jar 2",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_065/data.json",
+      "face_url": "presets/preset_065/face.png",
+      "body_url": "presets/preset_065/body.png",
+      "preview_url": "presets/preset_065/preview.png",
+      "screenshot_url": "presets/preset_065/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_066",
+      "name": "Knight of the Great Jar 3",
+      "author": "Hapfel",
+      "description": "NPC preset for Knight of the Great Jar 3",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_066/data.json",
+      "face_url": "presets/preset_066/face.png",
+      "body_url": "presets/preset_066/body.png",
+      "preview_url": "presets/preset_066/preview.png",
+      "screenshot_url": "presets/preset_066/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_067",
+      "name": "Great Horned Tragoth",
+      "author": "Hapfel",
+      "description": "NPC preset for Great Horned Tragoth",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_067/data.json",
+      "face_url": "presets/preset_067/face.png",
+      "body_url": "presets/preset_067/body.png",
+      "preview_url": "presets/preset_067/preview.png",
+      "screenshot_url": "presets/preset_067/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_068",
+      "name": "Eleonora, Violet Bloody Finger",
+      "author": "Hapfel",
+      "description": "NPC preset for Eleonora, Violet Bloody Finger",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_068/data.json",
+      "face_url": "presets/preset_068/face.png",
+      "body_url": "presets/preset_068/body.png",
+      "preview_url": "presets/preset_068/preview.png",
+      "screenshot_url": "presets/preset_068/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_069",
+      "name": "Sanguine Noble",
+      "author": "Hapfel",
+      "description": "NPC preset for Sanguine Noble",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_069/data.json",
+      "face_url": "presets/preset_069/face.png",
+      "body_url": "presets/preset_069/body.png",
+      "preview_url": "presets/preset_069/preview.png",
+      "screenshot_url": "presets/preset_069/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_070",
+      "name": "Magnus the Beast Claw",
+      "author": "Hapfel",
+      "description": "NPC preset for Magnus the Beast Claw",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_070/data.json",
+      "face_url": "presets/preset_070/face.png",
+      "body_url": "presets/preset_070/body.png",
+      "preview_url": "presets/preset_070/preview.png",
+      "screenshot_url": "presets/preset_070/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_071",
+      "name": "Rileigh the Idle",
+      "author": "Hapfel",
+      "description": "NPC preset for Rileigh the Idle",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_071/data.json",
+      "face_url": "presets/preset_071/face.png",
+      "body_url": "presets/preset_071/body.png",
+      "preview_url": "presets/preset_071/preview.png",
+      "screenshot_url": "presets/preset_071/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_072",
+      "name": "Maleigh Marais, Shaded Castle Castellan",
+      "author": "Hapfel",
+      "description": "NPC preset for Maleigh Marais, Shaded Castle Castellan",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_072/data.json",
+      "face_url": "presets/preset_072/face.png",
+      "body_url": "presets/preset_072/body.png",
+      "preview_url": "presets/preset_072/preview.png",
+      "screenshot_url": "presets/preset_072/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_073",
+      "name": "Necromancer Garris",
+      "author": "Hapfel",
+      "description": "NPC preset for Necromancer Garris",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_073/data.json",
+      "face_url": "presets/preset_073/face.png",
+      "body_url": "presets/preset_073/body.png",
+      "preview_url": "presets/preset_073/preview.png",
+      "screenshot_url": "presets/preset_073/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_074",
+      "name": "Inquisitor Ghiza",
+      "author": "Hapfel",
+      "description": "NPC preset for Inquisitor Ghiza",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_074/data.json",
+      "face_url": "presets/preset_074/face.png",
+      "body_url": "presets/preset_074/body.png",
+      "preview_url": "presets/preset_074/preview.png",
+      "screenshot_url": "presets/preset_074/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_075",
+      "name": "Errant Sorcerer Wilhelm",
+      "author": "Hapfel",
+      "description": "NPC preset for Errant Sorcerer Wilhelm",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_075/data.json",
+      "face_url": "presets/preset_075/face.png",
+      "body_url": "presets/preset_075/body.png",
+      "preview_url": "presets/preset_075/preview.png",
+      "screenshot_url": "presets/preset_075/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_076",
+      "name": "Vargram the Raging Wolf",
+      "author": "Hapfel",
+      "description": "NPC preset for Vargram the Raging Wolf",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_076/data.json",
+      "face_url": "presets/preset_076/face.png",
+      "body_url": "presets/preset_076/body.png",
+      "preview_url": "presets/preset_076/preview.png",
+      "screenshot_url": "presets/preset_076/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_077",
+      "name": "Esgar, Priest of Blood",
+      "author": "Hapfel",
+      "description": "NPC preset for Esgar, Priest of Blood",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_077/data.json",
+      "face_url": "presets/preset_077/face.png",
+      "body_url": "presets/preset_077/body.png",
+      "preview_url": "presets/preset_077/preview.png",
+      "screenshot_url": "presets/preset_077/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_078",
+      "name": "Juno Hoslow, Knight of Blood",
+      "author": "Hapfel",
+      "description": "NPC preset for Juno Hoslow, Knight of Blood",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_078/data.json",
+      "face_url": "presets/preset_078/face.png",
+      "body_url": "presets/preset_078/body.png",
+      "preview_url": "presets/preset_078/preview.png",
+      "screenshot_url": "presets/preset_078/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_079",
+      "name": "Flame Guardian",
+      "author": "Hapfel",
+      "description": "NPC preset for Flame Guardian",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_079/data.json",
+      "face_url": "presets/preset_079/face.png",
+      "body_url": "presets/preset_079/body.png",
+      "preview_url": "presets/preset_079/preview.png",
+      "screenshot_url": "presets/preset_079/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_080",
+      "name": "Chief Guardian Arghanthy",
+      "author": "Hapfel",
+      "description": "NPC preset for Chief Guardian Arghanthy",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_080/data.json",
+      "face_url": "presets/preset_080/face.png",
+      "body_url": "presets/preset_080/body.png",
+      "preview_url": "presets/preset_080/preview.png",
+      "screenshot_url": "presets/preset_080/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_081",
+      "name": "Inaba, Disciple of Okina",
+      "author": "Hapfel",
+      "description": "NPC preset for Inaba, Disciple of Okina",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_081/data.json",
+      "face_url": "presets/preset_081/face.png",
+      "body_url": "presets/preset_081/body.png",
+      "preview_url": "presets/preset_081/preview.png",
+      "screenshot_url": "presets/preset_081/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_082",
+      "name": "Bloody Finger Okina",
+      "author": "Hapfel",
+      "description": "NPC preset for Bloody Finger Okina",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_082/data.json",
+      "face_url": "presets/preset_082/face.png",
+      "body_url": "presets/preset_082/body.png",
+      "preview_url": "presets/preset_082/preview.png",
+      "screenshot_url": "presets/preset_082/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_083",
+      "name": "Fia's Champion 1",
+      "author": "Hapfel",
+      "description": "NPC preset for Fia's Champion 1",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_083/data.json",
+      "face_url": "presets/preset_083/face.png",
+      "body_url": "presets/preset_083/body.png",
+      "preview_url": "presets/preset_083/preview.png",
+      "screenshot_url": "presets/preset_083/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_084",
+      "name": "Fia's Champion 2",
+      "author": "Hapfel",
+      "description": "NPC preset for Fia's Champion 2",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_084/data.json",
+      "face_url": "presets/preset_084/face.png",
+      "body_url": "presets/preset_084/body.png",
+      "preview_url": "presets/preset_084/preview.png",
+      "screenshot_url": "presets/preset_084/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_085",
+      "name": "Fia's Champion 3",
+      "author": "Hapfel",
+      "description": "NPC preset for Fia's Champion 3",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_085/data.json",
+      "face_url": "presets/preset_085/face.png",
+      "body_url": "presets/preset_085/body.png",
+      "preview_url": "presets/preset_085/preview.png",
+      "screenshot_url": "presets/preset_085/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_086",
+      "name": "Lionel the Lionhearted",
+      "author": "Hapfel",
+      "description": "NPC preset for Lionel the Lionhearted",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_086/data.json",
+      "face_url": "presets/preset_086/face.png",
+      "body_url": "presets/preset_086/body.png",
+      "preview_url": "presets/preset_086/preview.png",
+      "screenshot_url": "presets/preset_086/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_087",
+      "name": "Nameless White Mask",
+      "author": "Hapfel",
+      "description": "NPC preset for Nameless White Mask",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_087/data.json",
+      "face_url": "presets/preset_087/face.png",
+      "body_url": "presets/preset_087/body.png",
+      "preview_url": "presets/preset_087/preview.png",
+      "screenshot_url": "presets/preset_087/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_088",
+      "name": "Mary, Eldest Sister",
+      "author": "Hapfel",
+      "description": "NPC preset for Mary, Eldest Sister",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_088/data.json",
+      "face_url": "presets/preset_088/face.png",
+      "body_url": "presets/preset_088/body.png",
+      "preview_url": "presets/preset_088/preview.png",
+      "screenshot_url": "presets/preset_088/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_089",
+      "name": "Maureen, Second Sister",
+      "author": "Hapfel",
+      "description": "NPC preset for Maureen, Second Sister",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_089/data.json",
+      "face_url": "presets/preset_089/face.png",
+      "body_url": "presets/preset_089/body.png",
+      "preview_url": "presets/preset_089/preview.png",
+      "screenshot_url": "presets/preset_089/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_090",
+      "name": "Amy, Third Sister",
+      "author": "Hapfel",
+      "description": "NPC preset for Amy, Third Sister",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_090/data.json",
+      "face_url": "presets/preset_090/face.png",
+      "body_url": "presets/preset_090/body.png",
+      "preview_url": "presets/preset_090/preview.png",
+      "screenshot_url": "presets/preset_090/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_091",
+      "name": "Polyanna, Youngest Sister",
+      "author": "Hapfel",
+      "description": "NPC preset for Polyanna, Youngest Sister",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_091/data.json",
+      "face_url": "presets/preset_091/face.png",
+      "body_url": "presets/preset_091/body.png",
+      "preview_url": "presets/preset_091/preview.png",
+      "screenshot_url": "presets/preset_091/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_092",
+      "name": "Human",
+      "author": "Hapfel",
+      "description": "NPC preset for Human",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_092/data.json",
+      "face_url": "presets/preset_092/face.png",
+      "body_url": "presets/preset_092/body.png",
+      "preview_url": "presets/preset_092/preview.png",
+      "screenshot_url": "presets/preset_092/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_093",
+      "name": "Human 2",
+      "author": "Hapfel",
+      "description": "NPC preset for Human 2",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_093/data.json",
+      "face_url": "presets/preset_093/face.png",
+      "body_url": "presets/preset_093/body.png",
+      "preview_url": "presets/preset_093/preview.png",
+      "screenshot_url": "presets/preset_093/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_094",
+      "name": "Sir Ansbach",
+      "author": "Hapfel",
+      "description": "NPC preset for Sir Ansbach",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_094/data.json",
+      "face_url": "presets/preset_094/face.png",
+      "body_url": "presets/preset_094/body.png",
+      "preview_url": "presets/preset_094/preview.png",
+      "screenshot_url": "presets/preset_094/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_095",
+      "name": "Redmane Freyja",
+      "author": "Hapfel",
+      "description": "NPC preset for Redmane Freyja",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_095/data.json",
+      "face_url": "presets/preset_095/face.png",
+      "body_url": "presets/preset_095/body.png",
+      "preview_url": "presets/preset_095/preview.png",
+      "screenshot_url": "presets/preset_095/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_096",
+      "name": "Hornsent",
+      "author": "Hapfel",
+      "description": "NPC preset for Hornsent",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_096/data.json",
+      "face_url": "presets/preset_096/face.png",
+      "body_url": "presets/preset_096/body.png",
+      "preview_url": "presets/preset_096/preview.png",
+      "screenshot_url": "presets/preset_096/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_097",
+      "name": "Igon",
+      "author": "Hapfel",
+      "description": "NPC preset for Igon (missing left leg)",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_097/data.json",
+      "face_url": "presets/preset_097/face.png",
+      "body_url": "presets/preset_097/body.png",
+      "preview_url": "presets/preset_097/preview.png",
+      "screenshot_url": "presets/preset_097/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_098",
+      "name": "Drake Warrior Igon",
+      "author": "Hapfel",
+      "description": "NPC preset for Drake Warrior Igon",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_098/data.json",
+      "face_url": "presets/preset_098/face.png",
+      "body_url": "presets/preset_098/body.png",
+      "preview_url": "presets/preset_098/preview.png",
+      "screenshot_url": "presets/preset_098/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_099",
+      "name": "Moore",
+      "author": "Hapfel",
+      "description": "NPC preset for Moore",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_099/data.json",
+      "face_url": "presets/preset_099/face.png",
+      "body_url": "presets/preset_099/body.png",
+      "preview_url": "presets/preset_099/preview.png",
+      "screenshot_url": "presets/preset_099/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_100",
+      "name": "Needle Knight Leda",
+      "author": "Hapfel",
+      "description": "NPC preset for Needle Knight Leda",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_100/data.json",
+      "face_url": "presets/preset_100/face.png",
+      "body_url": "presets/preset_100/body.png",
+      "preview_url": "presets/preset_100/preview.png",
+      "screenshot_url": "presets/preset_100/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_101",
+      "name": "Thiollier",
+      "author": "Hapfel",
+      "description": "NPC preset for Thiollier",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_101/data.json",
+      "face_url": "presets/preset_101/face.png",
+      "body_url": "presets/preset_101/body.png",
+      "preview_url": "presets/preset_101/preview.png",
+      "screenshot_url": "presets/preset_101/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_102",
+      "name": "Dryleaf Dane",
+      "author": "Hapfel",
+      "description": "NPC preset for Dryleaf Dane",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_102/data.json",
+      "face_url": "presets/preset_102/face.png",
+      "body_url": "presets/preset_102/body.png",
+      "preview_url": "presets/preset_102/preview.png",
+      "screenshot_url": "presets/preset_102/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_103",
+      "name": "Count Ymir, High Priest",
+      "author": "Hapfel",
+      "description": "NPC preset for Count Ymir, High Priest",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_103/data.json",
+      "face_url": "presets/preset_103/face.png",
+      "body_url": "presets/preset_103/body.png",
+      "preview_url": "presets/preset_103/preview.png",
+      "screenshot_url": "presets/preset_103/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_104",
+      "name": "Dragon Communion Priestess",
+      "author": "Hapfel",
+      "description": "NPC preset for Dragon Communion Priestess",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_104/data.json",
+      "face_url": "presets/preset_104/face.png",
+      "body_url": "presets/preset_104/body.png",
+      "preview_url": "presets/preset_104/preview.png",
+      "screenshot_url": "presets/preset_104/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_105",
+      "name": "Swordhand of Night Jol\u00e1n",
+      "author": "Hapfel",
+      "description": "NPC preset for Swordhand of Night Jol\u00e1n",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_105/data.json",
+      "face_url": "presets/preset_105/face.png",
+      "body_url": "presets/preset_105/body.png",
+      "preview_url": "presets/preset_105/preview.png",
+      "screenshot_url": "presets/preset_105/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_106",
+      "name": "Fire Knight Queelign",
+      "author": "Hapfel",
+      "description": "NPC preset for Fire Knight Queelign",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_106/data.json",
+      "face_url": "presets/preset_106/face.png",
+      "body_url": "presets/preset_106/body.png",
+      "preview_url": "presets/preset_106/preview.png",
+      "screenshot_url": "presets/preset_106/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_107",
+      "name": "Logur, the Beast Claw",
+      "author": "Hapfel",
+      "description": "NPC preset for Logur, the Beast Claw",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_107/data.json",
+      "face_url": "presets/preset_107/face.png",
+      "body_url": "presets/preset_107/body.png",
+      "preview_url": "presets/preset_107/preview.png",
+      "screenshot_url": "presets/preset_107/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_108",
+      "name": "Knight of the Solitary Gaol",
+      "author": "Hapfel",
+      "description": "NPC preset for Knight of the Solitary Gaol",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_108/data.json",
+      "face_url": "presets/preset_108/face.png",
+      "body_url": "presets/preset_108/body.png",
+      "preview_url": "presets/preset_108/preview.png",
+      "screenshot_url": "presets/preset_108/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_109",
+      "name": "Ancient Dragon-Man",
+      "author": "Hapfel",
+      "description": "NPC preset for Ancient Dragon-Man",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_109/data.json",
+      "face_url": "presets/preset_109/face.png",
+      "body_url": "presets/preset_109/body.png",
+      "preview_url": "presets/preset_109/preview.png",
+      "screenshot_url": "presets/preset_109/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_110",
+      "name": "Moonrithyll, Carian Knight",
+      "author": "Hapfel",
+      "description": "NPC preset for Moonrithyll, Carian Knight",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_110/data.json",
+      "face_url": "presets/preset_110/face.png",
+      "body_url": "presets/preset_110/body.png",
+      "preview_url": "presets/preset_110/preview.png",
+      "screenshot_url": "presets/preset_110/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_111",
+      "name": "Red Bear",
+      "author": "Hapfel",
+      "description": "NPC preset for Red Bear",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_111/data.json",
+      "face_url": "presets/preset_111/face.png",
+      "body_url": "presets/preset_111/body.png",
+      "preview_url": "presets/preset_111/preview.png",
+      "screenshot_url": "presets/preset_111/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_112",
+      "name": "Greater Potentate",
+      "author": "Hapfel",
+      "description": "NPC preset for Greater Potentate",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_112/data.json",
+      "face_url": "presets/preset_112/face.png",
+      "body_url": "presets/preset_112/body.png",
+      "preview_url": "presets/preset_112/preview.png",
+      "screenshot_url": "presets/preset_112/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_113",
+      "name": "Dancer of Ranah",
+      "author": "Hapfel",
+      "description": "NPC preset for Dancer of Ranah",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_113/data.json",
+      "face_url": "presets/preset_113/face.png",
+      "body_url": "presets/preset_113/body.png",
+      "preview_url": "presets/preset_113/preview.png",
+      "screenshot_url": "presets/preset_113/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_114",
+      "name": "Lamenter",
+      "author": "Hapfel",
+      "description": "NPC preset for Lamenter",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_114/data.json",
+      "face_url": "presets/preset_114/face.png",
+      "body_url": "presets/preset_114/body.png",
+      "preview_url": "presets/preset_114/preview.png",
+      "screenshot_url": "presets/preset_114/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_115",
+      "name": "Swordhand of Night Anna",
+      "author": "Hapfel",
+      "description": "NPC preset for Swordhand of Night Anna",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_115/data.json",
+      "face_url": "presets/preset_115/face.png",
+      "body_url": "presets/preset_115/body.png",
+      "preview_url": "presets/preset_115/preview.png",
+      "screenshot_url": "presets/preset_115/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_116",
+      "name": "Count Ymir, Mother of Fingers",
+      "author": "Hapfel",
+      "description": "NPC preset for Count Ymir, Mother of Fingers",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_116/data.json",
+      "face_url": "presets/preset_116/face.png",
+      "body_url": "presets/preset_116/body.png",
+      "preview_url": "presets/preset_116/preview.png",
+      "screenshot_url": "presets/preset_116/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_117",
+      "name": "Rakshasa",
+      "author": "Hapfel",
+      "description": "NPC preset for Rakshasa",
+      "tags": [
+        "female",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_117/data.json",
+      "face_url": "presets/preset_117/face.png",
+      "body_url": "presets/preset_117/body.png",
+      "preview_url": "presets/preset_117/preview.png",
+      "screenshot_url": "presets/preset_117/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_118",
+      "name": "Madding Hand",
+      "author": "Hapfel",
+      "description": "NPC preset for Madding Hand",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_118/data.json",
+      "face_url": "presets/preset_118/face.png",
+      "body_url": "presets/preset_118/body.png",
+      "preview_url": "presets/preset_118/preview.png",
+      "screenshot_url": "presets/preset_118/preview.png",
+      "created": "2026-06-09"
+    },
+    {
+      "id": "preset_119",
+      "name": "Sanguine Noble Nataan",
+      "author": "Hapfel",
+      "description": "NPC preset for Sanguine Noble Nataan",
+      "tags": [
+        "male",
+        "cosplay",
+        "npc"
+      ],
+      "data_url": "presets/preset_119/data.json",
+      "face_url": "presets/preset_119/face.png",
+      "body_url": "presets/preset_119/body.png",
+      "preview_url": "presets/preset_119/preview.png",
+      "screenshot_url": "presets/preset_119/preview.png",
+      "created": "2026-06-09"
     }
   ]
 }
