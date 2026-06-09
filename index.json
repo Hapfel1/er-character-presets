@@ -258,23 +258,6 @@
       "body_url": "presets/preset_015/body.png"
     },
     {
-      "id": "preset_016",
-      "name": "Sorceress Sellen",
-      "author": "Hapfel",
-      "description": "NPC preset for Sorceress Sellen",
-      "tags": [
-        "female",
-        "cosplay",
-        "npc"
-      ],
-      "data_url": "presets/preset_016/data.json",
-      "face_url": "presets/preset_016/face.png",
-      "body_url": "presets/preset_016/body.png",
-      "preview_url": "presets/preset_016/preview.png",
-      "screenshot_url": "presets/preset_016/preview.png",
-      "created": "2026-06-09"
-    },
-    {
       "id": "preset_017",
       "name": "Sorceress Sellen 2",
       "author": "Hapfel",
@@ -462,23 +445,6 @@
       "created": "2026-06-09"
     },
     {
-      "id": "preset_028",
-      "name": "Fia, Deathbed Companion",
-      "author": "Hapfel",
-      "description": "NPC preset for Fia, Deathbed Companion",
-      "tags": [
-        "female",
-        "cosplay",
-        "npc"
-      ],
-      "data_url": "presets/preset_028/data.json",
-      "face_url": "presets/preset_028/face.png",
-      "body_url": "presets/preset_028/body.png",
-      "preview_url": "presets/preset_028/preview.png",
-      "screenshot_url": "presets/preset_028/preview.png",
-      "created": "2026-06-09"
-    },
-    {
       "id": "preset_029",
       "name": "Edgar the Revenger",
       "author": "Hapfel",
@@ -544,23 +510,6 @@
       "body_url": "presets/preset_032/body.png",
       "preview_url": "presets/preset_032/preview.png",
       "screenshot_url": "presets/preset_032/preview.png",
-      "created": "2026-06-09"
-    },
-    {
-      "id": "preset_033",
-      "name": "Patches",
-      "author": "Hapfel",
-      "description": "NPC preset for Patches",
-      "tags": [
-        "male",
-        "cosplay",
-        "npc"
-      ],
-      "data_url": "presets/preset_033/data.json",
-      "face_url": "presets/preset_033/face.png",
-      "body_url": "presets/preset_033/body.png",
-      "preview_url": "presets/preset_033/preview.png",
-      "screenshot_url": "presets/preset_033/preview.png",
       "created": "2026-06-09"
     },
     {
@@ -680,23 +629,6 @@
       "body_url": "presets/preset_040/body.png",
       "preview_url": "presets/preset_040/preview.png",
       "screenshot_url": "presets/preset_040/preview.png",
-      "created": "2026-06-09"
-    },
-    {
-      "id": "preset_041",
-      "name": "Millicent",
-      "author": "Hapfel",
-      "description": "NPC preset for Millicent",
-      "tags": [
-        "female",
-        "cosplay",
-        "npc"
-      ],
-      "data_url": "presets/preset_041/data.json",
-      "face_url": "presets/preset_041/face.png",
-      "body_url": "presets/preset_041/body.png",
-      "preview_url": "presets/preset_041/preview.png",
-      "screenshot_url": "presets/preset_041/preview.png",
       "created": "2026-06-09"
     },
     {
