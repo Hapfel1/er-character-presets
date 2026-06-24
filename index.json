@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-06-09T00:00:00Z",
+  "last_updated": "2026-06-24T04:40:47Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -429,9 +429,9 @@
     },
     {
       "id": "preset_027",
-      "name": "White Mask Varr\u00e9",
+      "name": "White Mask Varré",
       "author": "Hapfel",
-      "description": "NPC preset for White Mask Varr\u00e9",
+      "description": "NPC preset for White Mask Varré",
       "tags": [
         "male",
         "cosplay",
@@ -1704,9 +1704,9 @@
     },
     {
       "id": "preset_105",
-      "name": "Swordhand of Night Jol\u00e1n",
+      "name": "Swordhand of Night Jolán",
       "author": "Hapfel",
-      "description": "NPC preset for Swordhand of Night Jol\u00e1n",
+      "description": "NPC preset for Swordhand of Night Jolán",
       "tags": [
         "female",
         "cosplay",
@@ -1956,6 +1956,22 @@
       "preview_url": "presets/preset_119/preview.png",
       "screenshot_url": "presets/preset_119/preview.png",
       "created": "2026-06-09"
+    },
+    {
+      "id": "preset_016",
+      "name": "hoobitygoobity face warp",
+      "author": "im shitting myself",
+      "tags": [
+        "female",
+        "realistic",
+        "elder"
+      ],
+      "description": "its a very warped and fucked up character",
+      "created": "2026-06-24",
+      "data_url": "presets/preset_016/data.json",
+      "screenshot_url": "presets/preset_016/preview.png",
+      "face_url": "presets/preset_016/face.png",
+      "body_url": "presets/preset_016/body.png"
     }
   ]
 }
