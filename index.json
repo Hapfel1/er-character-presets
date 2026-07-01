@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-06-26T00:43:04Z",
+  "last_updated": "2026-07-01T17:15:02Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -512,7 +512,7 @@
       "screenshot_url": "presets/preset_032/preview.png",
       "created": "2026-06-09"
     },
-    {
+    {704556186468483313
       "id": "preset_034",
       "name": "Sir Gideon Ofnir, the All-Knowing",
       "author": "Hapfel",
@@ -1972,6 +1972,21 @@
       "screenshot_url": "presets/preset_016/preview.png",
       "face_url": "presets/preset_016/face.png",
       "body_url": "presets/preset_016/body.png"
+    },
+    {
+      "id": "preset_033",
+      "name": "Saber",
+      "author": "Hapfel",
+      "tags": [
+        "female",
+        "young"
+      ],
+      "description": "Arturia Pendragon (Saber) from the Rate series\nCredits: https://www.youtube.com/watch?v=yt-pWkTSga8",
+      "created": "2026-07-01",
+      "data_url": "presets/preset_033/data.json",
+      "screenshot_url": "presets/preset_033/preview.png",
+      "face_url": "presets/preset_033/face.png",
+      "body_url": "presets/preset_033/body.png"
     },
     {
       "id": "preset_028",
