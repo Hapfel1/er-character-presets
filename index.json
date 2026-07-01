@@ -512,7 +512,7 @@
       "screenshot_url": "presets/preset_032/preview.png",
       "created": "2026-06-09"
     },
-    {
+    {704556186468483313
       "id": "preset_034",
       "name": "Sir Gideon Ofnir, the All-Knowing",
       "author": "Hapfel",
@@ -1987,6 +1987,26 @@
       "screenshot_url": "presets/preset_033/preview.png",
       "face_url": "presets/preset_033/face.png",
       "body_url": "presets/preset_033/body.png"
+    },
+    {
+      "id": "preset_028",
+      "name": "Snake",
+      "author": "Acarii",
+      "tags": [
+        "male",
+        "cosplay",
+        "fantasy",
+        "video game",
+        "metal gear solid",
+        "mgs",
+        "mgsv"
+      ],
+      "description": "Snake from Metal Gear Solid V\n\nUploaded for a friend.\n\nAttribution:\nI did not create this skin. I have long since lost the original link/slider profile. Whoever you were, you did an amazing job.",
+      "created": "2026-06-26",
+      "data_url": "presets/preset_028/data.json",
+      "screenshot_url": "presets/preset_028/preview.png",
+      "face_url": "presets/preset_028/face.png",
+      "body_url": "presets/preset_028/body.png"
     }
   ]
 }
