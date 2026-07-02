@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-07-01T17:15:02Z",
+  "last_updated": "2026-07-02T20:13:21Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -2007,6 +2007,25 @@
       "screenshot_url": "presets/preset_028/preview.png",
       "face_url": "presets/preset_028/face.png",
       "body_url": "presets/preset_028/body.png"
+    },
+    {
+      "id": "preset_041",
+      "name": "Rikku",
+      "author": "Acarii",
+      "tags": [
+        "female",
+        "cosplay",
+        "young",
+        "video game",
+        "ffx",
+        "final fantasy"
+      ],
+      "description": "Rikku from FFX.\n\nThis was uploaded for a test. Remove when test complete.\n\nAttribution:\n/u/CommunityCreations @reddit/r/SoulsSliders",
+      "created": "2026-07-02",
+      "data_url": "presets/preset_041/data.json",
+      "screenshot_url": "presets/preset_041/preview.png",
+      "face_url": "presets/preset_041/face.png",
+      "body_url": "presets/preset_041/body.png"
     }
   ]
 }
