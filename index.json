@@ -2041,6 +2041,21 @@
       "screenshot_url": "presets/preset_121/preview.png",
       "face_url": "presets/preset_121/face.png",
       "body_url": "presets/preset_121/body.png"
+    },
+    {
+      "id": "preset_120",
+      "name": "Ella (Preset A)",
+      "author": "bigobibbin",
+      "tags": [
+        "female",
+        "young"
+      ],
+      "description": "Faith / Int, Female Tarnished",
+      "created": "2026-07-19",
+      "data_url": "presets/preset_120/data.json",
+      "screenshot_url": "presets/preset_120/preview.png",
+      "face_url": "presets/preset_120/face.png",
+      "body_url": "presets/preset_120/body.png"
     }
   ]
 }
