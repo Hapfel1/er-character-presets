@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-07-02T20:13:21Z",
+  "last_updated": "2026-07-19T12:34:14Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -2026,6 +2026,21 @@
       "screenshot_url": "presets/preset_041/preview.png",
       "face_url": "presets/preset_041/face.png",
       "body_url": "presets/preset_041/body.png"
+    },
+    {
+      "id": "preset_121",
+      "name": "Keiko (Preset A)",
+      "author": "bigobibbin",
+      "tags": [
+        "female",
+        "young"
+      ],
+      "description": "DEX / ARC, Female Tarnished",
+      "created": "2026-07-19",
+      "data_url": "presets/preset_121/data.json",
+      "screenshot_url": "presets/preset_121/preview.png",
+      "face_url": "presets/preset_121/face.png",
+      "body_url": "presets/preset_121/body.png"
     }
   ]
 }
