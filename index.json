@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-07-19T12:34:14Z",
+  "last_updated": "2026-08-08T09:40:41Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -2056,6 +2056,19 @@
       "screenshot_url": "presets/preset_120/preview.png",
       "face_url": "presets/preset_120/face.png",
       "body_url": "presets/preset_120/body.png"
+    },
+    {
+      "id": "preset_122",
+      "name": "Sexy Prisoner",
+      "author": "Valinat",
+      "tags": [
+        "female",
+        "young"
+      ],
+      "description": ".....",
+      "created": "2026-08-08",
+      "data_url": "presets/preset_122/data.json",
+      "screenshot_url": "presets/preset_122/preview.png"
     }
   ]
 }
