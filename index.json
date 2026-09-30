@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-09-02T15:45:44Z",
+  "last_updated": "2026-09-30T00:45:16Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -2086,6 +2086,21 @@
       "screenshot_url": "presets/preset_122/preview.png",
       "face_url": "presets/preset_122/face.png",
       "body_url": "presets/preset_122/body.png"
+    },
+    {
+      "id": "preset_124",
+      "name": "Radagon",
+      "author": "Exorcist",
+      "tags": [
+        "male",
+        "cosplay",
+        "realistic",
+        "young"
+      ],
+      "description": "Radagon accurate face preset\nRadagon credits: nouvlesse on reddit",
+      "created": "2026-09-30",
+      "data_url": "presets/preset_124/data.json",
+      "screenshot_url": "presets/preset_124/preview.png"
     }
   ]
 }
