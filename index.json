@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-09-02T15:45:44Z",
+  "last_updated": "2026-10-11T22:02:50Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -2086,6 +2086,25 @@
       "screenshot_url": "presets/preset_122/preview.png",
       "face_url": "presets/preset_122/face.png",
       "body_url": "presets/preset_122/body.png"
+    },
+    {
+      "id": "preset_125",
+      "name": "Don Quixote",
+      "author": "Serbero",
+      "tags": [
+        "male",
+        "cosplay",
+        "realistic",
+        "elder",
+        "quixote",
+        "quijote"
+      ],
+      "description": "Alonso Quijano a.k.a. Don Quijote de la Mancha",
+      "created": "2026-10-11",
+      "data_url": "presets/preset_125/data.json",
+      "screenshot_url": "presets/preset_125/preview.png",
+      "face_url": "presets/preset_125/face.png",
+      "body_url": "presets/preset_125/body.png"
     }
   ]
 }
