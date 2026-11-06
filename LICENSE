@@ -1,21 +1,73 @@
-MIT License
+er-character-presets Terms
 
-Copyright (c) 2026 Hapfel
+Copyright (c) 2026 Hapfel (the collection, its index, scripts and workflows)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Content in this repository published before 6 November 2026 was released under
+the MIT License. From that date on, the repository and all content in it are
+offered only under the terms below.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. Definitions
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+"Submission" means a character preset together with the images and text that
+come with it, submitted by a user.
+
+"Collection" means all Submissions together with the index, metadata, scripts
+and workflows in this repository.
+
+"ER Save Manager" means the software published at
+https://github.com/Hapfel1/er-save-manager and
+https://www.nexusmods.com/eldenring/mods/9271.
+
+"Authorised Distribution Points" means:
+- https://github.com/Hapfel1/er-character-presets
+- ER Save Manager
+
+2. Submissions
+
+Each submitter keeps the copyright in their Submission. By submitting, the
+submitter:
+- confirms that they made the Submission or have the right to submit it, and
+  that any character or person it is based on is named in it;
+- grants Hapfel a worldwide, non-exclusive, royalty-free, perpetual licence to
+  host, copy, display and distribute the Submission through the Authorised
+  Distribution Points, and to change it as far as needed for that purpose
+  (format conversion, resizing, thumbnails, fixes to the data);
+- agrees that the Submission is published under these terms.
+
+A submitter can ask for their Submission to be removed by opening an issue in
+this repository. It is then removed from the Collection.
+
+3. Grant of Rights
+
+Anyone may:
+- view the Collection;
+- download Submissions through the Authorised Distribution Points and apply
+  them to their own characters.
+
+4. Restrictions
+
+Unless prior written permission is given by Hapfel:
+- the Collection or any Submission in it may not be redistributed, mirrored,
+  re-uploaded or hosted anywhere other than the Authorised Distribution Points;
+- the Collection may not be included in, listed by, or downloaded through other
+  software, websites or services;
+- the Collection may not be sold or used for commercial purposes.
+
+5. Game Content
+
+Elden Ring and its characters, names and in-game imagery belong to FromSoftware
+and Bandai Namco Entertainment. Screenshots in Submissions are included only to
+show the preset.
+
+6. Termination
+
+Any violation of Section 4 automatically terminates the rights granted under
+Section 3 for the violating party.
+
+7. No Warranty
+
+THE COLLECTION IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHOR OR THE SUBMITTERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY
+ARISING FROM THE USE OF THE COLLECTION.
