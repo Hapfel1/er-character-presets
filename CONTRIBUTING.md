@@ -20,6 +20,14 @@ In ER Save Manager:
 9. Drag and drop the zip that opened into the Issue body
 10. Click on Create
 
+## Submission Terms
+
+By submitting a preset you confirm that you made it, or have the right to
+submit it, and you agree to the terms in [LICENSE](LICENSE): the preset is
+published in this repository and in ER Save Manager, and may not be
+redistributed elsewhere. You keep the copyright and can ask for removal at any
+time by opening an issue.
+
 ## Review Process
 
 1. We'll review your submission
