@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-11-10T12:14:02Z",
+  "last_updated": "2026-11-10T12:14:13Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -2559,6 +2559,22 @@
       "screenshot_url": "presets/preset_152/preview.png",
       "face_url": "presets/preset_152/face.png",
       "body_url": "presets/preset_152/body.png"
+    },
+    {
+      "id": "preset_153",
+      "name": "Adella",
+      "author": "Vargram",
+      "tags": [
+        "female",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_153/data.json",
+      "screenshot_url": "presets/preset_153/preview.png",
+      "face_url": "presets/preset_153/face.png",
+      "body_url": "presets/preset_153/body.png"
     }
   ]
 }
