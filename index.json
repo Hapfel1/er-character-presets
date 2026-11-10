@@ -2154,6 +2154,22 @@
       "screenshot_url": "presets/preset_126/preview.png",
       "face_url": "presets/preset_126/face.png",
       "body_url": "presets/preset_126/body.png"
+    },
+    {
+      "id": "preset_127",
+      "name": "Karla",
+      "author": "Vargram",
+      "tags": [
+        "female",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_127/data.json",
+      "screenshot_url": "presets/preset_127/preview.png",
+      "face_url": "presets/preset_127/face.png",
+      "body_url": "presets/preset_127/body.png"
     }
   ]
 }
