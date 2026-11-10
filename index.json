@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-11-10T12:10:37Z",
+  "last_updated": "2026-11-10T12:12:54Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -2381,6 +2381,38 @@
       "screenshot_url": "presets/preset_141/preview.png",
       "face_url": "presets/preset_141/face.png",
       "body_url": "presets/preset_141/body.png"
+    },
+    {
+      "id": "preset_142",
+      "name": "Yuria",
+      "author": "Vargram",
+      "tags": [
+        "female",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_142/data.json",
+      "screenshot_url": "presets/preset_142/preview.png",
+      "face_url": "presets/preset_142/face.png",
+      "body_url": "presets/preset_142/body.png"
+    },
+    {
+      "id": "preset_143",
+      "name": "Vilhelm",
+      "author": "Vargram",
+      "tags": [
+        "male",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_143/data.json",
+      "screenshot_url": "presets/preset_143/preview.png",
+      "face_url": "presets/preset_143/face.png",
+      "body_url": "presets/preset_143/body.png"
     }
   ]
 }
