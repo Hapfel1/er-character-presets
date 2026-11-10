@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-11-10T11:09:31Z",
+  "last_updated": "2026-11-10T11:13:45Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -2251,6 +2251,23 @@
       "screenshot_url": "presets/preset_133/preview.png",
       "face_url": "presets/preset_133/face.png",
       "body_url": "presets/preset_133/body.png"
+    },
+    {
+      "id": "preset_135",
+      "name": "Isshin",
+      "author": "Vargram",
+      "tags": [
+        "male",
+        "cosplay",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_135/data.json",
+      "screenshot_url": "presets/preset_135/preview.png",
+      "face_url": "presets/preset_135/face.png",
+      "body_url": "presets/preset_135/body.png"
     }
   ]
 }
