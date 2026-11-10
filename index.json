@@ -2237,6 +2237,22 @@
       "body_url": "presets/preset_132/body.png"
     },
     {
+      "id": "preset_133",
+      "name": "Shira",
+      "author": "Vargram",
+      "tags": [
+        "female",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_133/data.json",
+      "screenshot_url": "presets/preset_133/preview.png",
+      "face_url": "presets/preset_133/face.png",
+      "body_url": "presets/preset_133/body.png"
+    },
+    {
       "id": "preset_134",
       "name": "Filianore",
       "author": "Vargram",
