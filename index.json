@@ -2137,6 +2137,23 @@
       "screenshot_url": "presets/preset_124/preview.png",
       "face_url": "presets/preset_124/face.png",
       "body_url": "presets/preset_124/body.png"
+    },
+    {
+      "id": "preset_126",
+      "name": "Ashemma",
+      "author": "Vargram",
+      "tags": [
+        "female",
+        "cosplay",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_126/data.json",
+      "screenshot_url": "presets/preset_126/preview.png",
+      "face_url": "presets/preset_126/face.png",
+      "body_url": "presets/preset_126/body.png"
     }
   ]
 }
