@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-11-10T08:39:44Z",
+  "last_updated": "2026-11-10T11:05:26Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -2202,6 +2202,23 @@
       "screenshot_url": "presets/preset_129/preview.png",
       "face_url": "presets/preset_129/face.png",
       "body_url": "presets/preset_129/body.png"
+    },
+    {
+      "id": "preset_131",
+      "name": "Gael",
+      "author": "Vargram",
+      "tags": [
+        "male",
+        "cosplay",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_131/data.json",
+      "screenshot_url": "presets/preset_131/preview.png",
+      "face_url": "presets/preset_131/face.png",
+      "body_url": "presets/preset_131/body.png"
     }
   ]
 }
