@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-11-10T12:13:47Z",
+  "last_updated": "2026-11-10T12:14:02Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -2526,6 +2526,39 @@
       "screenshot_url": "presets/preset_150/preview.png",
       "face_url": "presets/preset_150/face.png",
       "body_url": "presets/preset_150/body.png"
+    },
+    {
+      "id": "preset_151",
+      "name": "Faraam",
+      "author": "Vargram",
+      "tags": [
+        "male",
+        "cosplay",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_151/data.json",
+      "screenshot_url": "presets/preset_151/preview.png",
+      "face_url": "presets/preset_151/face.png",
+      "body_url": "presets/preset_151/body.png"
+    },
+    {
+      "id": "preset_152",
+      "name": "Beatrice",
+      "author": "Vargram",
+      "tags": [
+        "female",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_152/data.json",
+      "screenshot_url": "presets/preset_152/preview.png",
+      "face_url": "presets/preset_152/face.png",
+      "body_url": "presets/preset_152/body.png"
     }
   ]
 }
