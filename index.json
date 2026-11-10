@@ -2186,6 +2186,22 @@
       "screenshot_url": "presets/preset_128/preview.png",
       "face_url": "presets/preset_128/face.png",
       "body_url": "presets/preset_128/body.png"
+    },
+    {
+      "id": "preset_129",
+      "name": "Gren",
+      "author": "Vargram",
+      "tags": [
+        "male",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_129/data.json",
+      "screenshot_url": "presets/preset_129/preview.png",
+      "face_url": "presets/preset_129/face.png",
+      "body_url": "presets/preset_129/body.png"
     }
   ]
 }
