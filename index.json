@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-11-10T11:18:22Z",
+  "last_updated": "2026-11-10T11:09:31Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -2251,22 +2251,6 @@
       "screenshot_url": "presets/preset_133/preview.png",
       "face_url": "presets/preset_133/face.png",
       "body_url": "presets/preset_133/body.png"
-    },
-    {
-      "id": "preset_138",
-      "name": "Mildred",
-      "author": "Vargram",
-      "tags": [
-        "female",
-        "original",
-        "realistic"
-      ],
-      "description": "https://www.nexusmods.com/eldenring/mods/5047",
-      "created": "2026-11-10",
-      "data_url": "presets/preset_138/data.json",
-      "screenshot_url": "presets/preset_138/preview.png",
-      "face_url": "presets/preset_138/face.png",
-      "body_url": "presets/preset_138/body.png"
     }
   ]
 }
