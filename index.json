@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-11-10T08:23:34Z",
+  "last_updated": "2026-11-10T08:39:44Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -2105,6 +2105,71 @@
       "screenshot_url": "presets/preset_125/preview.png",
       "face_url": "presets/preset_125/face.png",
       "body_url": "presets/preset_125/body.png"
+    },
+    {
+      "id": "preset_130",
+      "name": "Horace",
+      "author": "Vargram",
+      "tags": [
+        "male",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_130/data.json",
+      "screenshot_url": "presets/preset_130/preview.png",
+      "face_url": "presets/preset_130/face.png",
+      "body_url": "presets/preset_130/body.png"
+    },
+    {
+      "id": "preset_124",
+      "name": "Lucatiel",
+      "author": "Vargram",
+      "tags": [
+        "female",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_124/data.json",
+      "screenshot_url": "presets/preset_124/preview.png",
+      "face_url": "presets/preset_124/face.png",
+      "body_url": "presets/preset_124/body.png"
+    },
+    {
+      "id": "preset_126",
+      "name": "Ashemma",
+      "author": "Vargram",
+      "tags": [
+        "female",
+        "cosplay",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_126/data.json",
+      "screenshot_url": "presets/preset_126/preview.png",
+      "face_url": "presets/preset_126/face.png",
+      "body_url": "presets/preset_126/body.png"
+    },
+    {
+      "id": "preset_127",
+      "name": "Karla",
+      "author": "Vargram",
+      "tags": [
+        "female",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_127/data.json",
+      "screenshot_url": "presets/preset_127/preview.png",
+      "face_url": "presets/preset_127/face.png",
+      "body_url": "presets/preset_127/body.png"
     },
     {
       "id": "preset_128",
