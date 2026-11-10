@@ -479,7 +479,7 @@ jobs:
             core.setOutput('has_body', hasBody ? 'true' : 'false');
             core.setOutput('has_preview', hasPreview ? 'true' : 'false');
       
-      - name: Count open submission PRs
+      - name: Collect IDs claimed by open submission PRs
         if: steps.validate.outputs.valid == 'true'
         id: open_prs
         uses: actions/github-script@v7
@@ -491,19 +491,30 @@ jobs:
               state: 'open',
               per_page: 100,
             });
-            const count = pulls.filter(p => p.head.ref.startsWith('submission/issue-')).length;
-            console.log(`Open submission PRs: ${count}`);
-            core.setOutput('count', String(count));
+            const claimed = new Set();
+            for (const pr of pulls.filter(p => p.head.ref.startsWith('submission/issue-'))) {
+              const files = await github.paginate(github.rest.pulls.listFiles, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number,
+                per_page: 100,
+              });
+              for (const f of files) {
+                const m = f.filename.match(/^presets\/preset_(\d+)\//);
+                if (m) claimed.add(String(parseInt(m[1], 10)));
+              }
+            }
+            console.log(`IDs claimed by open PRs: ${[...claimed].join(' ') || 'none'}`);
+            core.setOutput('claimed', [...claimed].join(' '));
 
       - name: Generate preset ID with gap-filling and octal fix
         if: steps.validate.outputs.valid == 'true'
         id: generate_id
         run: |
           ISSUE_NUM="${{ github.event.issue.number }}"
-          OPEN_PR_COUNT="${{ steps.open_prs.outputs.count }}"
           
-          # Get all existing IDs from index.json and filesystem
-          USED_IDS=()
+          # IDs on main (index.json and folders) plus IDs held by open submission PRs
+          USED_IDS=(${{ steps.open_prs.outputs.claimed }})
           
           # From index.json
           if [ -f index.json ]; then
@@ -539,10 +550,8 @@ jobs:
           
           echo "Used IDs: ${USED_IDS[*]}"
           
-          # Find next available ID, then skip forward by the number of open PRs
-          # so concurrent submissions don't claim the same ID
+          # Lowest free ID
           PRESET_ID=""
-          SKIPS_REMAINING="$OPEN_PR_COUNT"
           for i in $(seq 0 999); do
             FOUND=false
             for used in "${USED_IDS[@]}"; do
@@ -553,12 +562,8 @@ jobs:
             done
             
             if [ "$FOUND" = false ]; then
-              if [ "$SKIPS_REMAINING" -gt 0 ]; then
-                SKIPS_REMAINING=$((SKIPS_REMAINING - 1))
-              else
-                PRESET_ID=$(printf "preset_%03d" $i)
-                break
-              fi
+              PRESET_ID=$(printf "preset_%03d" $i)
+              break
             fi
           done
           
@@ -655,42 +660,6 @@ jobs:
           rm -f body.* Body.* BODY.*
           rm -f preview.* Preview.* PREVIEW.*
           rm -f *.zip *.ZIP
-      
-      - name: Update index.json
-        if: steps.validate.outputs.valid == 'true'
-        run: |
-          PRESET_ID="${{ steps.generate_id.outputs.preset_id }}"
-          PRESET_NAME="${{ steps.parse.outputs.preset_name }}"
-          AUTHOR="${{ steps.parse.outputs.author }}"
-          TAGS="${{ steps.parse.outputs.tags }}"
-          DESCRIPTION="${{ steps.parse.outputs.description }}"
-          HAS_FACE="${{ steps.download_images.outputs.has_face }}"
-          HAS_BODY="${{ steps.download_images.outputs.has_body }}"
-          
-          [ ! -f index.json ] && echo '{"version":"1.0.0","last_updated":"","base_url":"https://raw.githubusercontent.com/${{ github.repository }}/main/","presets":[]}' > index.json
-          
-          TAGS_ARRAY=$(echo "$TAGS" | jq -R 'split(",") | map(gsub("^\\s+|\\s+$";""))')
-          CREATED=$(date +%Y-%m-%d)
-          UPDATED=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-          
-          # Build entry
-          ENTRY=$(jq -n \
-            --arg id "$PRESET_ID" \
-            --arg name "$PRESET_NAME" \
-            --arg author "$AUTHOR" \
-            --argjson tags "$TAGS_ARRAY" \
-            --arg desc "$DESCRIPTION" \
-            --arg created "$CREATED" \
-            '{id: $id, name: $name, author: $author, tags: $tags, description: $desc, created: $created, data_url: ("presets/" + $id + "/data.json"), screenshot_url: ("presets/" + $id + "/preview.png")}')
-          
-          # Add URLs conditionally
-          [ "$HAS_FACE" = "true" ] && ENTRY=$(echo "$ENTRY" | jq --arg id "$PRESET_ID" '. + {face_url: ("presets/" + $id + "/face.png")}')
-          [ "$HAS_BODY" = "true" ] && ENTRY=$(echo "$ENTRY" | jq --arg id "$PRESET_ID" '. + {body_url: ("presets/" + $id + "/body.png")}')
-          
-          # Add to index
-          jq --argjson entry "$ENTRY" --arg updated "$UPDATED" \
-             '.presets += [$entry] | .last_updated = $updated' \
-             index.json > index.tmp && mv index.tmp index.json
       
       - name: Create PR
         if: steps.validate.outputs.valid == 'true'
