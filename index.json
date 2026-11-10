@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-11-10T11:20:26Z",
+  "last_updated": "2026-11-10T11:21:20Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -2253,8 +2253,8 @@
       "body_url": "presets/preset_133/body.png"
     },
     {
-      "id": "preset_139",
-      "name": "Iosefka",
+      "id": "preset_134",
+      "name": "Filianore",
       "author": "Vargram",
       "tags": [
         "female",
@@ -2263,10 +2263,76 @@
       ],
       "description": "https://www.nexusmods.com/eldenring/mods/5047",
       "created": "2026-11-10",
-      "data_url": "presets/preset_139/data.json",
-      "screenshot_url": "presets/preset_139/preview.png",
-      "face_url": "presets/preset_139/face.png",
-      "body_url": "presets/preset_139/body.png"
+      "data_url": "presets/preset_134/data.json",
+      "screenshot_url": "presets/preset_134/preview.png",
+      "face_url": "presets/preset_134/face.png",
+      "body_url": "presets/preset_134/body.png"
+    },
+    {
+      "id": "preset_135",
+      "name": "Isshin",
+      "author": "Vargram",
+      "tags": [
+        "male",
+        "cosplay",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_135/data.json",
+      "screenshot_url": "presets/preset_135/preview.png",
+      "face_url": "presets/preset_135/face.png",
+      "body_url": "presets/preset_135/body.png"
+    },
+    {
+      "id": "preset_136",
+      "name": "Eygon",
+      "author": "Vargram",
+      "tags": [
+        "male",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_136/data.json",
+      "screenshot_url": "presets/preset_136/preview.png",
+      "face_url": "presets/preset_136/face.png",
+      "body_url": "presets/preset_136/body.png"
+    },
+    {
+      "id": "preset_137",
+      "name": "Griffith",
+      "author": "Vargram",
+      "tags": [
+        "male",
+        "cosplay",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_137/data.json",
+      "screenshot_url": "presets/preset_137/preview.png",
+      "face_url": "presets/preset_137/face.png",
+      "body_url": "presets/preset_137/body.png"
+    },
+    {
+      "id": "preset_138",
+      "name": "Mildred",
+      "author": "Vargram",
+      "tags": [
+        "female",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_138/data.json",
+      "screenshot_url": "presets/preset_138/preview.png",
+      "face_url": "presets/preset_138/face.png",
+      "body_url": "presets/preset_138/body.png"
     }
   ]
 }

@@ -1,0 +1,60 @@
+name: Sync index.json
+
+# Submission PRs only add a preset folder. index.json is rebuilt here after
+# they land on main, so open submission PRs never conflict with each other.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'presets/**'
+      - '.github/scripts/sync_index.py'
+      - '.github/workflows/sync-index.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: sync-index
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Rebuild index.json
+        run: python .github/scripts/sync_index.py
+
+      - name: Commit and push
+        run: |
+          if git diff --quiet -- index.json; then
+            echo "No index changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.json
+          git commit -m "chore: sync index.json"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            # main moved: rebuild on top of it instead of merging index.json
+            git fetch origin main
+            git reset --hard origin/main
+            python .github/scripts/sync_index.py
+            git diff --quiet -- index.json && exit 0
+            git add index.json
+            git commit -m "chore: sync index.json"
+          done
+          exit 1
