@@ -2170,6 +2170,22 @@
       "screenshot_url": "presets/preset_127/preview.png",
       "face_url": "presets/preset_127/face.png",
       "body_url": "presets/preset_127/body.png"
+    },
+    {
+      "id": "preset_128",
+      "name": "Maria",
+      "author": "Vargram",
+      "tags": [
+        "female",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047\n-- updated --",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_128/data.json",
+      "screenshot_url": "presets/preset_128/preview.png",
+      "face_url": "presets/preset_128/face.png",
+      "body_url": "presets/preset_128/body.png"
     }
   ]
 }
