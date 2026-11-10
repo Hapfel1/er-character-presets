@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-11-10T12:13:30Z",
+  "last_updated": "2026-11-10T12:13:47Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -2494,6 +2494,38 @@
       "screenshot_url": "presets/preset_148/preview.png",
       "face_url": "presets/preset_148/face.png",
       "body_url": "presets/preset_148/body.png"
+    },
+    {
+      "id": "preset_149",
+      "name": "Creighton",
+      "author": "Vargram",
+      "tags": [
+        "male",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_149/data.json",
+      "screenshot_url": "presets/preset_149/preview.png",
+      "face_url": "presets/preset_149/face.png",
+      "body_url": "presets/preset_149/body.png"
+    },
+    {
+      "id": "preset_150",
+      "name": "Petrus",
+      "author": "Vargram",
+      "tags": [
+        "male",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_150/data.json",
+      "screenshot_url": "presets/preset_150/preview.png",
+      "face_url": "presets/preset_150/face.png",
+      "body_url": "presets/preset_150/body.png"
     }
   ]
 }
