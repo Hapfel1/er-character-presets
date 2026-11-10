@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-11-10T12:13:13Z",
+  "last_updated": "2026-11-10T12:13:30Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -2462,6 +2462,38 @@
       "screenshot_url": "presets/preset_146/preview.png",
       "face_url": "presets/preset_146/face.png",
       "body_url": "presets/preset_146/body.png"
+    },
+    {
+      "id": "preset_147",
+      "name": "Irina",
+      "author": "Vargram",
+      "tags": [
+        "female",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_147/data.json",
+      "screenshot_url": "presets/preset_147/preview.png",
+      "face_url": "presets/preset_147/face.png",
+      "body_url": "presets/preset_147/body.png"
+    },
+    {
+      "id": "preset_148",
+      "name": "Eileen",
+      "author": "Vargram",
+      "tags": [
+        "female",
+        "original",
+        "realistic"
+      ],
+      "description": "https://www.nexusmods.com/eldenring/mods/5047",
+      "created": "2026-11-10",
+      "data_url": "presets/preset_148/data.json",
+      "screenshot_url": "presets/preset_148/preview.png",
+      "face_url": "presets/preset_148/face.png",
+      "body_url": "presets/preset_148/body.png"
     }
   ]
 }
