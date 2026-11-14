@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_updated": "2026-11-10T12:14:13Z",
+  "last_updated": "2026-11-14T11:37:11Z",
   "base_url": "https://raw.githubusercontent.com/Hapfel1/er-character-presets/main/",
   "presets": [
     {
@@ -2575,6 +2575,32 @@
       "screenshot_url": "presets/preset_153/preview.png",
       "face_url": "presets/preset_153/face.png",
       "body_url": "presets/preset_153/body.png"
+    },
+    {
+      "id": "preset_154",
+      "name": "Death Bestial Priestess Demi-Human",
+      "author": "OmnigoddessNama",
+      "tags": [
+        "female",
+        "original",
+        "fantasy",
+        "realistic",
+        "young",
+        "demi-human",
+        "creature",
+        "monster",
+        "animal",
+        "furry",
+        "beast",
+        "bestial",
+        "anthro"
+      ],
+      "description": "Skull beast humanoid lands between demi-human player female creature for hats and hoods ear cover hair for best result",
+      "created": "2026-11-12",
+      "data_url": "presets/preset_154/data.json",
+      "screenshot_url": "presets/preset_154/preview.png",
+      "face_url": "presets/preset_154/face.png",
+      "body_url": "presets/preset_154/body.png"
     }
   ]
 }
