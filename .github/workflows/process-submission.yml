@@ -20,13 +20,15 @@ jobs:
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # No token in .git/config: later steps handle untrusted archive
+          # content. create-pull-request authenticates with its own input.
+          persist-credentials: false
       
       - name: Validate issue format
         id: validate
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         with:
           script: |
             const issue = context.payload.issue;
@@ -71,7 +73,7 @@ jobs:
       
       - name: Reject invalid submissions
         if: steps.validate.outputs.valid == 'false'
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         env:
           VALIDATE_ERROR: ${{ steps.validate.outputs.error }}
         with:
@@ -96,7 +98,7 @@ jobs:
 
       - name: Acknowledge report submission
         if: steps.validate.outputs.valid == 'report'
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         with:
           script: |
             await github.rest.issues.createComment({
@@ -120,7 +122,7 @@ jobs:
       - name: Check user blocklist/trustlist
         if: steps.validate.outputs.valid == 'true'
         id: check_user
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         with:
           script: |
             const fs = require('fs');
@@ -150,7 +152,7 @@ jobs:
       
       - name: Handle blocked user
         if: steps.validate.outputs.valid == 'true' && steps.check_user.outputs.status == 'blocked'
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         env:
           BLOCK_REASON: ${{ steps.check_user.outputs.reason }}
         with:
@@ -183,7 +185,7 @@ jobs:
       
       - name: Setup Python
         if: steps.validate.outputs.valid == 'true'
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: '3.11'
       
@@ -191,12 +193,12 @@ jobs:
         if: steps.validate.outputs.valid == 'true'
         run: |
           python -m pip install --upgrade pip
-          pip install pillow
+          pip install --disable-pip-version-check pillow==11.3.0
       
       - name: Parse issue and extract data
         if: steps.validate.outputs.valid == 'true'
         id: parse
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         with:
           script: |
             const issue = context.payload.issue;
@@ -214,18 +216,49 @@ jobs:
               throw new Error('Missing required fields');
             }
             
-            const name = nameMatch[1].trim();
-            const author = authorMatch[1].trim();
-            const tags = tagsMatch[1].trim();
-            const description = descMatch[1].trim();
+            // Printable text only, length-capped.
+            const clean = (text, max) =>
+              text.replace(/[\u0000-\u001f\u007f-\u009f\u200b-\u200f\u202a-\u202e\u2066-\u2069]/g, ' ')
+                .trim().slice(0, max);
+            const name = clean(nameMatch[1], 60);
+            const author = clean(authorMatch[1], 40);
+            const tags = tagsMatch[1].split(',').map(t => clean(t, 24)).filter(Boolean).slice(0, 8).join(', ');
+            const description = descMatch[1]
+              .split('\n').map(line => clean(line, 1000)).join('\n').trim().slice(0, 1000);
+            if (!name || !author) {
+              throw new Error('Preset name and author must not be empty');
+            }
             
             // Extract appearance JSON
             const jsonMatch = body.match(/```json\s*([\s\S]+?)\s*```/);
             if (!jsonMatch) {
               throw new Error('No appearance JSON found');
             }
+            if (jsonMatch[1].length > 32768) {
+              throw new Error('Appearance JSON is larger than 32 KiB');
+            }
             
             const appearance = JSON.parse(jsonMatch[1]);
+            // Flat object: short snake_case keys, integer, integer-list or
+            // short string values, as written by the app's preset export.
+            const isInt = v => Number.isInteger(v) && Math.abs(v) < 2 ** 32;
+            if (!appearance || typeof appearance !== 'object' || Array.isArray(appearance)) {
+              throw new Error('Appearance JSON must be an object');
+            }
+            const entries = Object.entries(appearance);
+            if (entries.length > 400) {
+              throw new Error('Appearance JSON has too many fields');
+            }
+            for (const [key, value] of entries) {
+              const ok = /^[A-Za-z0-9_]{1,48}$/.test(key) && (
+                isInt(value)
+                || (typeof value === 'string' && value.length <= 16)
+                || (Array.isArray(value) && value.length <= 128 && value.every(isInt))
+              );
+              if (!ok) {
+                throw new Error(`Unexpected appearance field: ${key.slice(0, 48)}`);
+              }
+            }
             
             core.setOutput('preset_name', name);
             core.setOutput('author', author);
@@ -238,7 +271,7 @@ jobs:
       - name: Check for duplicate appearance JSON
         if: steps.validate.outputs.valid == 'true'
         id: check_duplicate
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         with:
           script: |
             const fs = require('fs');
@@ -308,7 +341,7 @@ jobs:
 
       - name: Reject duplicate submission
         if: steps.validate.outputs.valid == 'true' && steps.check_duplicate.outputs.duplicate == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         env:
           DUPLICATE_MATCHES: ${{ steps.check_duplicate.outputs.matches }}
         with:
@@ -343,7 +376,7 @@ jobs:
       - name: Download images from ZIP
         if: steps.validate.outputs.valid == 'true'
         id: download_images
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         with:
           script: |
             const fs = require('fs');
@@ -502,7 +535,7 @@ jobs:
       - name: Collect IDs taken on main or by open submission PRs
         if: steps.validate.outputs.valid == 'true'
         id: open_prs
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         with:
           script: |
             const pulls = await github.paginate(github.rest.pulls.list, {
@@ -653,51 +686,16 @@ jobs:
         if: steps.validate.outputs.valid == 'true'
         env:
           PRESET_ID: ${{ steps.generate_id.outputs.preset_id }}
-          HAS_FACE: ${{ steps.download_images.outputs.has_face }}
-          HAS_BODY: ${{ steps.download_images.outputs.has_body }}
-          HAS_PREVIEW: ${{ steps.download_images.outputs.has_preview }}
+        # Images are decoded and re-encoded as PNG: non-images fail here and
+        # EXIF/metadata (GPS, device info) is dropped.
         run: |
-          DEST="$GITHUB_WORKSPACE/presets/${PRESET_ID}"
-          cd "$RUNNER_TEMP/preset_images" 2>/dev/null || exit 0
-
-          # Face (case-insensitive)
-          if [ "$HAS_FACE" = "true" ]; then
-            for ext in png PNG jpg JPG jpeg JPEG; do
-              if [ -f "face.$ext" ]; then
-                cp "face.$ext" "$DEST/face.png"
-                [ "$HAS_PREVIEW" != "true" ] && cp "face.$ext" "$DEST/preview.png"
-                break
-              fi
-            done
-          fi
-          
-          # Body (case-insensitive)
-          if [ "$HAS_BODY" = "true" ]; then
-            for ext in png PNG jpg JPG jpeg JPEG; do
-              if [ -f "body.$ext" ]; then
-                cp "body.$ext" "$DEST/body.png"
-                [ "$HAS_FACE" != "true" ] && [ "$HAS_PREVIEW" != "true" ] && cp "body.$ext" "$DEST/preview.png"
-                break
-              fi
-            done
-          fi
-          
-          # Preview (case-insensitive, overrides face/body)
-          if [ "$HAS_PREVIEW" = "true" ]; then
-            for ext in png PNG jpg JPG jpeg JPEG; do
-              if [ -f "preview.$ext" ]; then
-                cp "preview.$ext" "$DEST/preview.png"
-                break
-              fi
-            done
-          fi
-          
+          python .github/scripts/sanitize_images.py "$RUNNER_TEMP/preset_images" "presets/${PRESET_ID}"
           rm -rf "$RUNNER_TEMP/preset_images"
-      
+
       - name: Create PR
         if: steps.validate.outputs.valid == 'true'
         id: create_pr
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6.1.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "feat: add preset ${{ steps.parse.outputs.preset_name }}"
@@ -714,7 +712,7 @@ jobs:
       
       - name: Auto-approve for trusted users
         if: steps.validate.outputs.valid == 'true' && steps.check_user.outputs.auto_approve == 'true' && steps.create_pr.outputs.pull-request-number != ''
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         with:
           script: |
             await github.rest.pulls.createReview({
@@ -729,7 +727,7 @@ jobs:
       
       - name: Comment on issue
         if: steps.validate.outputs.valid == 'true' && steps.create_pr.outputs.pull-request-number
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         with:
           script: |
             await github.rest.issues.createComment({
