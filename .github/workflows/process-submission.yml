@@ -72,13 +72,15 @@ jobs:
       - name: Reject invalid submissions
         if: steps.validate.outputs.valid == 'false'
         uses: actions/github-script@v7
+        env:
+          VALIDATE_ERROR: ${{ steps.validate.outputs.error }}
         with:
           script: |
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.payload.issue.number,
-              body: `❌ **Invalid submission format**\n\n${{ steps.validate.outputs.error }}\n\nPlease use the preset submission form to submit a valid preset.`
+              body: `❌ **Invalid submission format**\n\n${process.env.VALIDATE_ERROR}\n\nPlease use the preset submission form to submit a valid preset.`
             });
             
             await github.rest.issues.addLabels({
@@ -149,13 +151,15 @@ jobs:
       - name: Handle blocked user
         if: steps.validate.outputs.valid == 'true' && steps.check_user.outputs.status == 'blocked'
         uses: actions/github-script@v7
+        env:
+          BLOCK_REASON: ${{ steps.check_user.outputs.reason }}
         with:
           script: |
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.payload.issue.number,
-              body: `❌ ${{ steps.check_user.outputs.reason }}`
+              body: `❌ ${process.env.BLOCK_REASON}`
             });
             
             await github.rest.issues.update({
@@ -305,9 +309,11 @@ jobs:
       - name: Reject duplicate submission
         if: steps.validate.outputs.valid == 'true' && steps.check_duplicate.outputs.duplicate == 'true'
         uses: actions/github-script@v7
+        env:
+          DUPLICATE_MATCHES: ${{ steps.check_duplicate.outputs.matches }}
         with:
           script: |
-            const matches = '${{ steps.check_duplicate.outputs.matches }}';
+            const matches = process.env.DUPLICATE_MATCHES;
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -342,7 +348,7 @@ jobs:
           script: |
             const fs = require('fs');
             const https = require('https');
-            const { execSync } = require('child_process');
+            const { execFileSync } = require('child_process');
             
             const issue = context.payload.issue;
             const body = issue.body || '';
@@ -435,12 +441,26 @@ jobs:
             // Extract ZIP
             console.log('=== Extracting ZIP ===');
             try {
-              const output = execSync('unzip -o preset_images.zip', { encoding: 'utf8' });
+              // Flat extraction (-j) into a directory outside the checkout:
+              // archive entries cannot overwrite repo files. Anything that is not
+              // a regular file (symlinks to runner files) is removed before use.
+              const extractDir = `${process.env.RUNNER_TEMP}/preset_images`;
+              fs.mkdirSync(extractDir, { recursive: true });
+              const output = execFileSync(
+                'unzip', ['-o', '-j', '-qq', zipFilename, '-d', extractDir],
+                { encoding: 'utf8' }
+              );
               console.log('Extraction output:', output);
-              
-              // List extracted files
-              const files = execSync('ls -la', { encoding: 'utf8' });
-              console.log('Files after extraction:\n', files);
+              for (const name of fs.readdirSync(extractDir)) {
+                const full = `${extractDir}/${name}`;
+                if (!fs.lstatSync(full).isFile()) {
+                  console.log(`Removing non-regular entry: ${name}`);
+                  fs.rmSync(full, { recursive: true, force: true });
+                }
+              }
+              fs.unlinkSync(zipFilename);
+              process.chdir(extractDir);
+              console.log('Extracted files:', fs.readdirSync(extractDir).join(', '));
             } catch (err) {
               console.log('❌ Extraction failed:', err.message);
               core.setOutput('has_face', 'false');
@@ -596,14 +616,16 @@ jobs:
       
       - name: Create preset folder and data
         if: steps.validate.outputs.valid == 'true'
+        # Issue text reaches the shell only through env vars, never through
+        # expression substitution into the script.
+        env:
+          PRESET_ID: ${{ steps.generate_id.outputs.preset_id }}
+          PRESET_NAME: ${{ steps.parse.outputs.preset_name }}
+          AUTHOR: ${{ steps.parse.outputs.author }}
+          TAGS: ${{ steps.parse.outputs.tags }}
+          DESCRIPTION: ${{ steps.parse.outputs.description }}
+          APPEARANCE: ${{ steps.parse.outputs.appearance }}
         run: |
-          PRESET_ID="${{ steps.generate_id.outputs.preset_id }}"
-          PRESET_NAME="${{ steps.parse.outputs.preset_name }}"
-          AUTHOR="${{ steps.parse.outputs.author }}"
-          TAGS="${{ steps.parse.outputs.tags }}"
-          DESCRIPTION="${{ steps.parse.outputs.description }}"
-          APPEARANCE='${{ steps.parse.outputs.appearance }}'
-          
           mkdir -p "presets/${PRESET_ID}"
           
           # Create data.json with proper structure
@@ -629,18 +651,21 @@ jobs:
             }' > "presets/${PRESET_ID}/data.json"
       - name: Copy images
         if: steps.validate.outputs.valid == 'true'
+        env:
+          PRESET_ID: ${{ steps.generate_id.outputs.preset_id }}
+          HAS_FACE: ${{ steps.download_images.outputs.has_face }}
+          HAS_BODY: ${{ steps.download_images.outputs.has_body }}
+          HAS_PREVIEW: ${{ steps.download_images.outputs.has_preview }}
         run: |
-          PRESET_ID="${{ steps.generate_id.outputs.preset_id }}"
-          HAS_FACE="${{ steps.download_images.outputs.has_face }}"
-          HAS_BODY="${{ steps.download_images.outputs.has_body }}"
-          HAS_PREVIEW="${{ steps.download_images.outputs.has_preview }}"
-          
+          DEST="$GITHUB_WORKSPACE/presets/${PRESET_ID}"
+          cd "$RUNNER_TEMP/preset_images" 2>/dev/null || exit 0
+
           # Face (case-insensitive)
           if [ "$HAS_FACE" = "true" ]; then
             for ext in png PNG jpg JPG jpeg JPEG; do
               if [ -f "face.$ext" ]; then
-                cp "face.$ext" "presets/${PRESET_ID}/face.png"
-                [ "$HAS_PREVIEW" != "true" ] && cp "face.$ext" "presets/${PRESET_ID}/preview.png"
+                cp "face.$ext" "$DEST/face.png"
+                [ "$HAS_PREVIEW" != "true" ] && cp "face.$ext" "$DEST/preview.png"
                 break
               fi
             done
@@ -650,8 +675,8 @@ jobs:
           if [ "$HAS_BODY" = "true" ]; then
             for ext in png PNG jpg JPG jpeg JPEG; do
               if [ -f "body.$ext" ]; then
-                cp "body.$ext" "presets/${PRESET_ID}/body.png"
-                [ "$HAS_FACE" != "true" ] && [ "$HAS_PREVIEW" != "true" ] && cp "body.$ext" "presets/${PRESET_ID}/preview.png"
+                cp "body.$ext" "$DEST/body.png"
+                [ "$HAS_FACE" != "true" ] && [ "$HAS_PREVIEW" != "true" ] && cp "body.$ext" "$DEST/preview.png"
                 break
               fi
             done
@@ -661,17 +686,13 @@ jobs:
           if [ "$HAS_PREVIEW" = "true" ]; then
             for ext in png PNG jpg JPG jpeg JPEG; do
               if [ -f "preview.$ext" ]; then
-                cp "preview.$ext" "presets/${PRESET_ID}/preview.png"
+                cp "preview.$ext" "$DEST/preview.png"
                 break
               fi
             done
           fi
           
-          # Cleanup (case-insensitive)
-          rm -f face.* Face.* FACE.*
-          rm -f body.* Body.* BODY.*
-          rm -f preview.* Preview.* PREVIEW.*
-          rm -f *.zip *.ZIP
+          rm -rf "$RUNNER_TEMP/preset_images"
       
       - name: Create PR
         if: steps.validate.outputs.valid == 'true'
